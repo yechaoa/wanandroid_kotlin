@@ -1,4 +1,4 @@
-# wanandroid_kotlin
+# wanandroid_kotlin 【开发中】
 玩安卓Kotlin版
 
 ![](https://img.shields.io/badge/language-kotlin-orange.svg)
