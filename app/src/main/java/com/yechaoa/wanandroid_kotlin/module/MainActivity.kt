@@ -1,7 +1,8 @@
-package com.yechaoa.wanandroid_kotlin
+package com.yechaoa.wanandroid_kotlin.module
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.yechaoa.wanandroid_kotlin.R
 
 class MainActivity : AppCompatActivity() {
 
