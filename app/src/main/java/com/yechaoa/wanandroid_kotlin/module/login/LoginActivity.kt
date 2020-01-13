@@ -7,7 +7,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.yechaoa.wanandroid_kotlin.R
 import com.yechaoa.wanandroid_kotlin.base.BaseActivity
+import com.yechaoa.wanandroid_kotlin.common.MyConfig
 import com.yechaoa.wanandroid_kotlin.module.MainActivity
+import com.yechaoa.yutilskt.SpUtilKt
 import com.yechaoa.yutilskt.YUtilsKt
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -18,6 +20,8 @@ class LoginActivity : BaseActivity() {
     }
 
     override fun initView() {
+        setMyTitle("登录")
+
         btn_login.setOnClickListener {
             Toast.makeText(this, "aaa", Toast.LENGTH_SHORT).show()
             attemptLogin()
@@ -58,6 +62,8 @@ class LoginActivity : BaseActivity() {
     private fun doLogin(username: String, password: String) {
 
         YUtilsKt.showLoading(this, "测试加载中")
+
+        SpUtilKt.setBoolean(MyConfig.IS_LOGIN, true)
 
         Toast.makeText(this, "账号---$username，密码---$password", Toast.LENGTH_SHORT).show()
 

@@ -8,6 +8,7 @@
     tools:context=".module.login.LoginActivity">
 
     <EditText
+        android:text="1"
         android:id="@+id/et_username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -19,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:text="2"
         android:id="@+id/et_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

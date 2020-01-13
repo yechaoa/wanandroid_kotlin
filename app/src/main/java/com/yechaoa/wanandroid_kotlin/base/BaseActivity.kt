@@ -22,6 +22,10 @@ abstract class BaseActivity : AppCompatActivity() {
         initView()
     }
 
+    protected fun setMyTitle(title: String) {
+        supportActionBar?.title = title
+    }
+
     protected abstract fun getLayoutId(): Int
 
     protected abstract fun initView()
