@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
@@ -93,7 +92,8 @@ class MainActivity : BaseActivity() {
         //获取第2个itemView
         val itemView = menuView.getChildAt(1) as BottomNavigationItemView
         //引入badgeView
-        val badgeView = LayoutInflater.from(this).inflate(R.layout.layout_badge_view, menuView, false)
+        val badgeView =
+            LayoutInflater.from(this).inflate(R.layout.layout_badge_view, menuView, false)
         //把badgeView添加到itemView中
         itemView.addView(badgeView)
         //获取子view并设置显示数目
@@ -131,8 +131,7 @@ class MainActivity : BaseActivity() {
             }
 
             //关闭侧边栏
-            val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
-            drawer.closeDrawer(GravityCompat.START)
+            drawer_layout.closeDrawer(GravityCompat.START)
 
             true
         }
