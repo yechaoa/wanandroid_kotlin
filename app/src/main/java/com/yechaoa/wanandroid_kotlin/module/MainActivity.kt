@@ -1,10 +1,14 @@
 package com.yechaoa.wanandroid_kotlin.module
 
 import android.content.Intent
+import android.view.LayoutInflater
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.snackbar.Snackbar
 import com.yechaoa.wanandroid_kotlin.R
 import com.yechaoa.wanandroid_kotlin.adapter.CommonViewPagerAdapter
@@ -16,7 +20,6 @@ import com.yechaoa.wanandroid_kotlin.module.navi.NaviFragment
 import com.yechaoa.wanandroid_kotlin.module.project.ProjectFragment
 import com.yechaoa.wanandroid_kotlin.module.tree.TreeFragment
 import com.yechaoa.yutilskt.ActivityUtilKt
-import com.yechaoa.yutilskt.LogUtilKt
 import com.yechaoa.yutilskt.SpUtilKt
 import com.yechaoa.yutilskt.ToastUtilKt
 import kotlinx.android.synthetic.main.activity_main.*
@@ -75,7 +78,30 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
+        setBadge()
         initListener()
+    }
+
+    /**
+     * 给BottomNavigationView 设置Badge 小红点
+     *
+     * BottomNavigationMenuView中的每一个Tab是一个FrameLayout，所以可以在上面随意添加View、这样就可以实现角标了
+     */
+    private fun setBadge() {
+        //获取底部菜单view
+        val menuView = bottom_navigation.getChildAt(0) as BottomNavigationMenuView
+        //获取第2个itemView
+        val itemView = menuView.getChildAt(1) as BottomNavigationItemView
+        //引入badgeView
+        val badgeView = LayoutInflater.from(this).inflate(R.layout.layout_badge_view, menuView, false)
+        //把badgeView添加到itemView中
+        itemView.addView(badgeView)
+        //获取子view并设置显示数目
+        val count = badgeView.findViewById<TextView>(R.id.tv_badge)
+        count.text = "2"
+
+        //不显示则隐藏
+        //count.visibility=View.GONE
     }
 
     private fun initListener() {
@@ -126,7 +152,6 @@ class MainActivity : BaseActivity() {
             }
 
             override fun onPageSelected(position: Int) {
-                LogUtilKt.i("...$position..")
                 bottom_navigation.menu.getItem(position).isChecked = true
                 //设置checked为true，但是不能触发ItemSelected事件，所以滑动时也要设置一下标题
                 when (position) {
