@@ -128,6 +128,21 @@ class MainActivity : BaseActivity() {
             override fun onPageSelected(position: Int) {
                 LogUtilKt.i("...$position..")
                 bottom_navigation.menu.getItem(position).isChecked = true
+                //设置checked为true，但是不能触发ItemSelected事件，所以滑动时也要设置一下标题
+                when (position) {
+                    0 -> {
+                        toolbar.title = resources.getString(R.string.app_name)
+                    }
+                    1 -> {
+                        toolbar.title = resources.getString(R.string.title_tree)
+                    }
+                    2 -> {
+                        toolbar.title = resources.getString(R.string.title_navi)
+                    }
+                    else -> {
+                        toolbar.title = resources.getString(R.string.title_project)
+                    }
+                }
             }
         })
 
@@ -138,26 +153,18 @@ class MainActivity : BaseActivity() {
             when (it.itemId) {
                 R.id.navigation_home -> {
                     view_pager.currentItem = 0
-                    toolbar.title = resources.getString(R.string.app_name)
-                    LogUtilKt.i("111")
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.navigation_tree -> {
                     view_pager.currentItem = 1
-                    toolbar.title = resources.getString(R.string.title_tree)
-                    LogUtilKt.i("222")
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.navigation_navi -> {
                     view_pager.currentItem = 2
-                    toolbar.title = resources.getString(R.string.title_navi)
-                    LogUtilKt.i("333")
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.navigation_project -> {
                     view_pager.currentItem = 3
-                    toolbar.title = resources.getString(R.string.title_project)
-                    LogUtilKt.i("444")
                     return@setOnNavigationItemSelectedListener true
                 }
             }
