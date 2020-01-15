@@ -2,6 +2,8 @@ package com.yechaoa.wanandroid_kotlin.module
 
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
@@ -34,6 +36,7 @@ class MainActivity : BaseActivity() {
     override fun initView() {
 
         toolbar.title = resources.getString(R.string.app_name)
+        setSupportActionBar(toolbar)
 
         fab.setOnClickListener {
             Snackbar.make(it, "这是一个提示", Snackbar.LENGTH_SHORT)
@@ -196,8 +199,31 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    // 保存用户按返回键的时间
-    private var mExitTime: Long = 0
+    /**
+     * 添加toolbar菜单
+     */
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_toolbar, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    /**
+     * toolbar菜单事件
+     */
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.action_search -> {
+                ToastUtilKt.showToast("搜索")
+            }
+            R.id.action_settings -> {
+                ToastUtilKt.showToast("设置")
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    private var mExitTime: Long = 0 // 保存用户按返回键的时间
 
     /**
      * 拦截返回事件，自处理
