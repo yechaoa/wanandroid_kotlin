@@ -21,6 +21,15 @@
 
 # :point_right:感谢
 
+* [YUtils](https://github.com/yechaoa/YUtils)
+* [RxJava](https://github.com/ReactiveX/RxJava)
+* [Retrofit](https://github.com/square/retrofit)
+* [OkHttp](https://github.com/square/okhttp)
+* [Glide](https://github.com/bumptech/glide)
+* [Banner](https://github.com/youth5201314/banner)
+* [VerticalTabLayout](https://github.com/qstumn/VerticalTabLayout)
+* [AgentWeb](https://github.com/Justson/AgentWeb)
+* [BRVAH](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
 
 # :package:环境
 
