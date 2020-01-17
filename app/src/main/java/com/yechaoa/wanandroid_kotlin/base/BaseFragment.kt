@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.yechaoa.yutilskt.ActivityUtilKt
+import com.yechaoa.yutilskt.YUtilsKt
 
 /**
  * Created by yechao on 2020/1/13/013.
  * Describe :
  */
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : Fragment() ,BaseView{
 
     protected lateinit var mContext: Context
 
@@ -25,9 +26,19 @@ abstract class BaseFragment : Fragment() {
 
         mContext = ActivityUtilKt.currentActivity!!
 
-        initView()
+        createPresenter()
 
         return view
+    }
+
+    /**
+     * 初始化方法要放在onViewCreated或者onActivityCreated方法里，不然找不到控件
+     */
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initView()
+        initData()
     }
 
     /**
@@ -37,8 +48,10 @@ abstract class BaseFragment : Fragment() {
      */
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        if (!hidden) initData()
+//        if (hidden) initData()
     }
+
+    protected abstract fun createPresenter()
 
     protected abstract fun getLayoutId(): Int
 
@@ -46,4 +59,15 @@ abstract class BaseFragment : Fragment() {
 
     protected abstract fun initData()
 
+    override fun showLoading() {
+        YUtilsKt.showLoading(ActivityUtilKt.currentActivity!!,"加载中")
+    }
+
+    override fun hideLoading() {
+        YUtilsKt.hideLoading()
+    }
+
+    override fun onErrorCode(bean: BaseBean<Any>) {
+
+    }
 }

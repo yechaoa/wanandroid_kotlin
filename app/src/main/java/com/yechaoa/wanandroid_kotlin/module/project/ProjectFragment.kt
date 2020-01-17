@@ -10,6 +10,10 @@ import com.yechaoa.wanandroid_kotlin.base.BaseFragment
  */
 class ProjectFragment : BaseFragment() {
 
+    override fun createPresenter() {
+
+    }
+
     override fun getLayoutId(): Int {
         return R.layout.fragment_project
     }

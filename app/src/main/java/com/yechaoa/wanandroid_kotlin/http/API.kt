@@ -1,12 +1,10 @@
 package com.yechaoa.wanandroid_kotlin.http
 
 import com.yechaoa.wanandroid_kotlin.base.BaseBean
+import com.yechaoa.wanandroid_kotlin.bean.Article
 import com.yechaoa.wanandroid_kotlin.bean.User
 import io.reactivex.Observable
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 /**
  * Created by yechao on 2020/1/8/008.
@@ -14,7 +12,7 @@ import retrofit2.http.Path
  */
 class API {
 
-    companion object{
+    companion object {
         const val BASE_URL = "https://www.wanandroid.com/"
     }
 
@@ -36,6 +34,11 @@ class API {
             @Field("repassword") repassword: String?
         ): Observable<BaseBean<String>>
 
+
+        //-----------------------【首页相关】----------------------
+
+        @GET("article/list/{page}/json")
+        fun getArticleList(@Path("page") page: Int): Observable<BaseBean<Article>>
 
     }
 

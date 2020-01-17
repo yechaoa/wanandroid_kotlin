@@ -42,7 +42,7 @@ class MainActivity : BaseActivity() {
 
         fab.setOnClickListener {
             Snackbar.make(it, "这是一个提示", Snackbar.LENGTH_SHORT)
-                .setAction("按钮") { ToastUtilKt.showToast("点击了按钮") }.show()
+                .setAction("按钮") { ToastUtilKt.showCenterToast("点击了按钮") }.show()
         }
 
         initActionBarDrawer()
@@ -117,14 +117,14 @@ class MainActivity : BaseActivity() {
             // Handle navigation view item clicks here.
             when (it.itemId) {
                 R.id.nav_collect -> {
-                    ToastUtilKt.showToast("收藏")
+                    ToastUtilKt.showCenterToast("收藏")
 //                    startActivity(Intent(this, CollectActivity::class.java))
                 }
                 R.id.nav_share -> {
-                    ToastUtilKt.showToast("分享")
+                    ToastUtilKt.showCenterToast("分享")
                 }
                 R.id.nav_about -> {
-                    ToastUtilKt.showToast("关于")
+                    ToastUtilKt.showCenterToast("关于")
 //                    startActivity(Intent(this, AboutActivity::class.java))
                 }
                 R.id.nav_logout -> {
@@ -215,10 +215,10 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.action_search -> {
-                ToastUtilKt.showToast("搜索")
+                ToastUtilKt.showCenterToast("搜索")
             }
             R.id.action_settings -> {
-                ToastUtilKt.showToast("设置")
+                ToastUtilKt.showCenterToast("设置")
             }
         }
         return super.onOptionsItemSelected(item)
@@ -235,7 +235,7 @@ class MainActivity : BaseActivity() {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
             if ((System.currentTimeMillis() - mExitTime) > 2000) {
-                ToastUtilKt.showToast("再按一次退出" + resources.getString(R.string.app_name))
+                ToastUtilKt.showCenterToast("再按一次退出" + resources.getString(R.string.app_name))
                 mExitTime = System.currentTimeMillis()
             } else {
                 ActivityUtilKt.closeAllActivity()

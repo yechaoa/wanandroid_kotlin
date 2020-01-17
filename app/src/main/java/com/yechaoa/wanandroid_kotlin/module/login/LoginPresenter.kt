@@ -6,8 +6,10 @@ import com.yechaoa.wanandroid_kotlin.http.RetrofitService
 import com.yechaoa.yutilskt.LogUtilKt
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import org.reactivestreams.Subscription
 
 /**
  * Created by yechao on 2020/1/9/009.
@@ -17,9 +19,10 @@ class LoginPresenter(loginView: ILoginView) {
 
     private var mLoginView: ILoginView = loginView
 
+
     fun submit(username: String?, password: String?) {
 
-        RetrofitService.getApiService()
+          RetrofitService.getApiService()
             .login(username, password)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -48,6 +51,10 @@ class LoginPresenter(loginView: ILoginView) {
                 }
 
             })
+
+    }
+
+    fun unSubscribe(){
 
     }
 

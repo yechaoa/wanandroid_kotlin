@@ -5,11 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".module.home.HomeFragment">
 
-    <TextView
-        android:gravity="center"
-        android:textSize="@dimen/sp_30"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/title_home" />
+        android:layout_height="wrap_content" />
 
 </FrameLayout>

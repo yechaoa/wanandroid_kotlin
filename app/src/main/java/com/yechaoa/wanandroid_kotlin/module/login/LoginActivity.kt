@@ -30,7 +30,6 @@ class LoginActivity : BaseActivity(), ILoginView {
         setMyTitle("登录")
 
         btn_login.setOnClickListener {
-            Toast.makeText(this, "aaa", Toast.LENGTH_SHORT).show()
             attemptLogin()
         }
     }
@@ -73,12 +72,12 @@ class LoginActivity : BaseActivity(), ILoginView {
 
     override fun showLoginSuccess(successMessage: String) {
         YUtilsKt.hideLoading()
-        ToastUtilKt.showToast(successMessage)
+        ToastUtilKt.showCenterToast(successMessage)
     }
 
     override fun showLoginFailed(errorMessage: String) {
         YUtilsKt.hideLoading()
-        ToastUtilKt.showToast(errorMessage)
+        ToastUtilKt.showCenterToast(errorMessage)
     }
 
     override fun doSuccess(user: BaseBean<User>) {
@@ -86,6 +85,11 @@ class LoginActivity : BaseActivity(), ILoginView {
 
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mLoginPresenter.unSubscribe()
     }
 
 }
