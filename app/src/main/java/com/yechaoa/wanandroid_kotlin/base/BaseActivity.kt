@@ -4,12 +4,16 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import com.yechaoa.yutilskt.YUtilsKt
 
 /**
  * Created by yechao on 2020/1/3/003.
  * Describe :
  */
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity: AppCompatActivity(), BaseView {
+
+//    protected var presenter: P? = null
+    protected abstract fun createPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +22,11 @@ abstract class BaseActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         setContentView(LayoutInflater.from(this).inflate(getLayoutId(), null))
+
+//        presenter = createPresenter()
+//        presenter?.attachView(this)
+
+        createPresenter()
 
         initView()
     }
@@ -29,5 +38,22 @@ abstract class BaseActivity : AppCompatActivity() {
     protected abstract fun getLayoutId(): Int
 
     protected abstract fun initView()
+
+    override fun showLoading() {
+        YUtilsKt.showLoading(this,"加载中")
+    }
+
+    override fun hideLoading() {
+        YUtilsKt.hideLoading()
+    }
+
+    override fun onErrorCode(bean: BaseBean<Any>) {
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+//        presenter?.detachView()
+    }
 
 }

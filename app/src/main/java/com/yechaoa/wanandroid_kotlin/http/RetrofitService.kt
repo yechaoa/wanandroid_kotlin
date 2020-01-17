@@ -1,7 +1,5 @@
 package com.yechaoa.wanandroid_kotlin.http
 
-import com.yechaoa.wanandroid_kotlin.http.cookie.CookiesManager
-import com.yechaoa.yutils.YUtils
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -29,7 +27,6 @@ object RetrofitService {
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
             .connectTimeout(15, TimeUnit.SECONDS)
-            .cookieJar(CookiesManager(YUtils.getApplication()))
             .build()
 
         //关联okhttp并加上rxjava和gson的配置和baseurl
@@ -40,7 +37,6 @@ object RetrofitService {
             .baseUrl(API.BASE_URL)
             .build()
 
-//        apiServer=retrofit.create<API.WAZApi>(API.WAZApi::class.java)
         apiServer = retrofit.create(API.WAZApi::class.java)
     }
 
