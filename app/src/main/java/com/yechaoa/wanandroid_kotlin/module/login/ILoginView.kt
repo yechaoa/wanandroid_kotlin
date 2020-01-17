@@ -10,10 +10,10 @@ import com.yechaoa.wanandroid_kotlin.bean.User
  */
 interface ILoginView : BaseView {
 
-    fun showLoginSuccess(successMessage: String?)
+    fun showLoginSuccess(successMessage: String)
 
-    fun showLoginFailed(errorMessage: String?)
+    fun showLoginFailed(errorMessage: String)
 
-    fun doSuccess(user: BaseBean<User?>?)
+    fun doSuccess(user: BaseBean<User>)
 
 }

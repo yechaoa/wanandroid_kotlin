@@ -29,6 +29,8 @@ import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : BaseActivity() {
 
+    override fun createPresenter() {}
+
     override fun getLayoutId(): Int {
         return R.layout.activity_main
     }

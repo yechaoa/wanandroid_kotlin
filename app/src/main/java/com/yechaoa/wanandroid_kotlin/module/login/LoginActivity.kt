@@ -1,19 +1,26 @@
 package com.yechaoa.wanandroid_kotlin.module.login
 
-import android.content.Context
 import android.content.Intent
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.yechaoa.wanandroid_kotlin.R
 import com.yechaoa.wanandroid_kotlin.base.BaseActivity
+import com.yechaoa.wanandroid_kotlin.base.BaseBean
+import com.yechaoa.wanandroid_kotlin.bean.User
 import com.yechaoa.wanandroid_kotlin.common.MyConfig
 import com.yechaoa.wanandroid_kotlin.module.MainActivity
 import com.yechaoa.yutilskt.SpUtilKt
+import com.yechaoa.yutilskt.ToastUtilKt
 import com.yechaoa.yutilskt.YUtilsKt
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : BaseActivity() {
+class LoginActivity : BaseActivity(), ILoginView {
+
+    private lateinit var mLoginPresenter: LoginPresenter
+
+    override fun createPresenter() {
+        mLoginPresenter = LoginPresenter(this)
+    }
 
     override fun getLayoutId(): Int {
         return R.layout.activity_login
@@ -29,7 +36,7 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun attemptLogin() {
-        closeSoftKeyboard()
+        YUtilsKt.closeSoftKeyboard()
 
         et_username.error = null
         et_password.error = null
@@ -60,22 +67,25 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun doLogin(username: String, password: String) {
-
         YUtilsKt.showLoading(this, "测试加载中")
+        mLoginPresenter.submit(username, password)
+    }
 
+    override fun showLoginSuccess(successMessage: String) {
+        YUtilsKt.hideLoading()
+        ToastUtilKt.showToast(successMessage)
+    }
+
+    override fun showLoginFailed(errorMessage: String) {
+        YUtilsKt.hideLoading()
+        ToastUtilKt.showToast(errorMessage)
+    }
+
+    override fun doSuccess(user: BaseBean<User>) {
         SpUtilKt.setBoolean(MyConfig.IS_LOGIN, true)
-
-        Toast.makeText(this, "账号---$username，密码---$password", Toast.LENGTH_SHORT).show()
 
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-
     }
-
-    private fun closeSoftKeyboard() {
-        val inputManger = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputManger.hideSoftInputFromWindow(this.window.decorView.windowToken, 0)
-    }
-
 
 }
