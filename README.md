@@ -10,13 +10,11 @@
 * [玩安卓 小程序版本](https://github.com/yechaoa/wanandroid_mini)
 * [玩安卓 Kotlin版本](https://github.com/yechaoa/wanandroid_kotlin)
 
-<br>
-
 
 # :fire:截图
-| <img src="/screenshot/1.png" width="285"/> |
-| :--: | 
-| 首页 | 
+| <img src="/screenshot/1.png" width="285"/> | <img src="/screenshot/2.png" width="285"/> | <img src="/screenshot/3.png" width="285"/> |
+| :--: | :--: | :--: | 
+| 首页 | 体系 | 导航 | 
 
 # :pencil:Todo
 
