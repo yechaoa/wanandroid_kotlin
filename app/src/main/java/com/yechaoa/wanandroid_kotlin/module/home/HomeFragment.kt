@@ -1,5 +1,6 @@
 package com.yechaoa.wanandroid_kotlin.module.home
 
+import android.content.Intent
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yechaoa.wanandroid_kotlin.R
@@ -9,6 +10,7 @@ import com.yechaoa.wanandroid_kotlin.base.BaseFragment
 import com.yechaoa.wanandroid_kotlin.bean.Article
 import com.yechaoa.wanandroid_kotlin.bean.ArticleDetail
 import com.yechaoa.wanandroid_kotlin.bean.Banner
+import com.yechaoa.wanandroid_kotlin.module.detail.DetailActivity
 import com.yechaoa.wanandroid_kotlin.utils.GlideImageLoader
 import com.yechaoa.yutilskt.ToastUtilKt
 import com.yechaoa.yutilskt.YUtilsKt
@@ -25,6 +27,7 @@ import kotlin.math.roundToInt
 class HomeFragment : BaseFragment(), IHomeView, OnBannerListener {
 
     lateinit var mHomePresenter: HomePresenter
+    private lateinit var bannerList: List<Banner>
 
     override fun createPresenter() {
         mHomePresenter = HomePresenter(this)
@@ -44,6 +47,8 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener {
     }
 
     override fun getBanner(banners: BaseBean<List<Banner>>) {
+        bannerList = banners.data
+
         val images: MutableList<String> = ArrayList()
         val titles: MutableList<String> = ArrayList()
         for (i in banners.data.indices) {
@@ -73,12 +78,18 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener {
         val datas = article.data.datas
         val articleAdapter = ArticleAdapter(datas as MutableList<ArticleDetail>)
         articleAdapter.animationEnable = true
+
         articleAdapter.setOnItemClickListener { adapter, view, position ->
-            ToastUtilKt.showCenterToast(datas[position].title + "---$position")
+            val intent = Intent(mContext, DetailActivity::class.java)
+            intent.putExtra(DetailActivity.WEB_URL, datas[position].link)
+            intent.putExtra(DetailActivity.WEB_TITLE, datas[position].title)
+            startActivity(intent)
         }
+
         articleAdapter.setOnItemChildClickListener { adapter, view, position ->
             ToastUtilKt.showCenterToast("收藏$position")
         }
+
         recycler_view.adapter = articleAdapter
     }
 
@@ -93,7 +104,10 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener {
     }
 
     override fun OnBannerClick(position: Int) {
-        ToastUtilKt.showToast("$position")
+        val intent = Intent(mContext, DetailActivity::class.java)
+        intent.putExtra(DetailActivity.WEB_URL, bannerList[position].url)
+        intent.putExtra(DetailActivity.WEB_TITLE, bannerList[position].title)
+        startActivity(intent)
     }
 
 }
