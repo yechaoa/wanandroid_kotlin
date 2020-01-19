@@ -60,4 +60,7 @@ dependencies {
 
     /*agentWeb*/
     implementation 'com.just.agentweb:agentweb:4.0.2'
+
+    /*VerticalTabLayout*/
+    implementation 'q.rorbin:VerticalTabLayout:1.2.7'
 }

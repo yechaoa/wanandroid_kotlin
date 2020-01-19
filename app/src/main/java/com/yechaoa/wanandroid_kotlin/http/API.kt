@@ -1,10 +1,7 @@
 package com.yechaoa.wanandroid_kotlin.http
 
 import com.yechaoa.wanandroid_kotlin.base.BaseBean
-import com.yechaoa.wanandroid_kotlin.bean.Article
-import com.yechaoa.wanandroid_kotlin.bean.Banner
-import com.yechaoa.wanandroid_kotlin.bean.Tree
-import com.yechaoa.wanandroid_kotlin.bean.User
+import com.yechaoa.wanandroid_kotlin.bean.*
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -53,6 +50,13 @@ class API {
         //体系数据
         @GET("tree/json")
         fun getTree(): Observable<BaseBean<MutableList<Tree>>>
+
+
+        //-----------------------【 导航 】----------------------
+
+        //导航数据
+        @GET("navi/json")
+        fun getNavi(): Observable<BaseBean<MutableList<Navi>>>
 
     }
 
