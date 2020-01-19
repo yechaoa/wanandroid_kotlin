@@ -2,6 +2,7 @@ package com.yechaoa.wanandroid_kotlin.http
 
 import com.yechaoa.wanandroid_kotlin.base.BaseBean
 import com.yechaoa.wanandroid_kotlin.bean.Article
+import com.yechaoa.wanandroid_kotlin.bean.Banner
 import com.yechaoa.wanandroid_kotlin.bean.User
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -39,6 +40,9 @@ class API {
 
         @GET("article/list/{page}/json")
         fun getArticleList(@Path("page") page: Int): Observable<BaseBean<Article>>
+
+        @GET("banner/json")
+        fun getBanner(): Observable<BaseBean<List<Banner>>>
 
     }
 
