@@ -11,7 +11,7 @@ import com.yechaoa.wanandroid_kotlin.bean.Banner
  */
 interface IHomeView : BaseView {
 
-    fun getBanner(banners: BaseBean<List<Banner>>)
+    fun getBanner(banners: BaseBean<MutableList<Banner>>)
 
     fun getBannerError(msg: String)
 

@@ -50,7 +50,7 @@ class HomePresenter(homeView: IHomeView) {
             .getBanner()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<BaseBean<List<Banner>>> {
+            .subscribe(object : Observer<BaseBean<MutableList<Banner>>> {
                 override fun onComplete() {
                     LogUtilKt.i("onComplete")
                 }
@@ -59,7 +59,7 @@ class HomePresenter(homeView: IHomeView) {
                     LogUtilKt.i("onSubscribe")
                 }
 
-                override fun onNext(t: BaseBean<List<Banner>>) {
+                override fun onNext(t: BaseBean<MutableList<Banner>>) {
                     LogUtilKt.i("onNext")
                     mIHomeView.getBanner(t)
                 }

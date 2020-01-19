@@ -7,7 +7,7 @@ package com.yechaoa.wanandroid_kotlin.bean
 
 data class Article(
     val curPage: Int,
-    val datas: List<ArticleDetail>,
+    val datas: MutableList<ArticleDetail>,
     val offset: Int,
     val over: Boolean,
     val pageCount: Int,

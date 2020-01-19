@@ -3,6 +3,7 @@ package com.yechaoa.wanandroid_kotlin.http
 import com.yechaoa.wanandroid_kotlin.base.BaseBean
 import com.yechaoa.wanandroid_kotlin.bean.Article
 import com.yechaoa.wanandroid_kotlin.bean.Banner
+import com.yechaoa.wanandroid_kotlin.bean.Tree
 import com.yechaoa.wanandroid_kotlin.bean.User
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -38,11 +39,20 @@ class API {
 
         //-----------------------【首页相关】----------------------
 
+        //首页文章列表
         @GET("article/list/{page}/json")
         fun getArticleList(@Path("page") page: Int): Observable<BaseBean<Article>>
 
+        //首页banner
         @GET("banner/json")
-        fun getBanner(): Observable<BaseBean<List<Banner>>>
+        fun getBanner(): Observable<BaseBean<MutableList<Banner>>>
+
+
+        //-----------------------【 体系 】----------------------
+
+        //体系数据
+        @GET("tree/json")
+        fun getTree(): Observable<BaseBean<MutableList<Tree>>>
 
     }
 

@@ -8,7 +8,6 @@ import com.yechaoa.wanandroid_kotlin.adapter.ArticleAdapter
 import com.yechaoa.wanandroid_kotlin.base.BaseBean
 import com.yechaoa.wanandroid_kotlin.base.BaseFragment
 import com.yechaoa.wanandroid_kotlin.bean.Article
-import com.yechaoa.wanandroid_kotlin.bean.ArticleDetail
 import com.yechaoa.wanandroid_kotlin.bean.Banner
 import com.yechaoa.wanandroid_kotlin.module.detail.DetailActivity
 import com.yechaoa.wanandroid_kotlin.utils.GlideImageLoader
@@ -46,7 +45,7 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener {
         mHomePresenter.getArticleList(0)
     }
 
-    override fun getBanner(banners: BaseBean<List<Banner>>) {
+    override fun getBanner(banners: BaseBean<MutableList<Banner>>) {
         bannerList = banners.data
 
         val images: MutableList<String> = ArrayList()
@@ -76,9 +75,10 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener {
 
     override fun getArticleList(article: BaseBean<Article>) {
         val datas = article.data.datas
-        val articleAdapter = ArticleAdapter(datas as MutableList<ArticleDetail>)
+        val articleAdapter = ArticleAdapter(datas)
         articleAdapter.animationEnable = true
 
+        //item点击事件
         articleAdapter.setOnItemClickListener { adapter, view, position ->
             val intent = Intent(mContext, DetailActivity::class.java)
             intent.putExtra(DetailActivity.WEB_URL, datas[position].link)
@@ -86,6 +86,7 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener {
             startActivity(intent)
         }
 
+        //item子view点击事件
         articleAdapter.setOnItemChildClickListener { adapter, view, position ->
             ToastUtilKt.showCenterToast("收藏$position")
         }
