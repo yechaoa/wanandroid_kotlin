@@ -1,6 +1,7 @@
 package com.yechaoa.wanandroid_kotlin.module.navi
 
 
+import android.content.Intent
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.yechaoa.wanandroid_kotlin.R
@@ -8,6 +9,7 @@ import com.yechaoa.wanandroid_kotlin.adapter.NaviAdapter
 import com.yechaoa.wanandroid_kotlin.base.BaseBean
 import com.yechaoa.wanandroid_kotlin.base.BaseFragment
 import com.yechaoa.wanandroid_kotlin.bean.Navi
+import com.yechaoa.wanandroid_kotlin.module.detail.DetailActivity
 import com.yechaoa.yutilskt.ToastUtilKt
 import kotlinx.android.synthetic.main.fragment_navi.*
 import q.rorbin.verticaltablayout.VerticalTabLayout
@@ -82,7 +84,10 @@ class NaviFragment : BaseFragment(), INaviView, VerticalTabLayout.OnTabSelectedL
          */
         val naviAdapter = NaviAdapter(mNaviList[0].articles)
         naviAdapter.setOnItemClickListener { adapter, view, pos ->
-            ToastUtilKt.showCenterToast(mNaviList[0].articles[pos].title)
+            val intent = Intent(mContext, DetailActivity::class.java)
+            intent.putExtra(DetailActivity.WEB_URL, mNaviList[0].articles[pos].link)
+            intent.putExtra(DetailActivity.WEB_TITLE, mNaviList[0].articles[pos].title)
+            startActivity(intent)
         }
         recycler_view.adapter = naviAdapter
     }
@@ -99,7 +104,10 @@ class NaviFragment : BaseFragment(), INaviView, VerticalTabLayout.OnTabSelectedL
 
         val naviAdapter = NaviAdapter(mNaviList[position].articles)
         naviAdapter.setOnItemClickListener { adapter, view, pos ->
-            ToastUtilKt.showCenterToast(mNaviList[position].articles[pos].title)
+            val intent = Intent(mContext, DetailActivity::class.java)
+            intent.putExtra(DetailActivity.WEB_URL, mNaviList[position].articles[pos].link)
+            intent.putExtra(DetailActivity.WEB_TITLE, mNaviList[position].articles[pos].title)
+            startActivity(intent)
         }
         recycler_view.adapter = naviAdapter
     }
