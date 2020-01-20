@@ -16,9 +16,9 @@ class ArticleAdapter(data: MutableList<ArticleDetail>) : BaseQuickAdapter<Articl
         //fromHtml，因为搜索结果中的title中含有html标签
         helper.setText(R.id.article_title, Html.fromHtml(item!!.title))
         helper.setText(R.id.article_chapter, item.chapterName)
-        helper.setText(R.id.article_author, item.author)
+        //helper.setText(R.id.article_author, item.author)
+        helper.setText(R.id.article_date, item.niceDate)
 
         addChildClickViewIds(R.id.article_favorite)
-
     }
 }
