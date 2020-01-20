@@ -1,5 +1,5 @@
 # wanandroid_kotlin 【开发中】
-玩安卓Kotlin版
+玩安卓Kotlin版，目前还是比较简陋的版本，年后一步一步完善。
 
 ![](https://img.shields.io/badge/language-kotlin-orange.svg)
 ![](https://img.shields.io/hexpm/l/plug.svg)
@@ -12,12 +12,22 @@
 
 
 # :fire:截图
-| <img src="/screenshot/1.png" width="285"/> | <img src="/screenshot/2.png" width="285"/> | <img src="/screenshot/3.png" width="285"/> |
-| :--: | :--: | :--: | 
-| 首页 | 体系 | 导航 | 
+| <img src="/screenshot/1.png" width="285"/> | <img src="/screenshot/2.png" width="285"/> | <img src="/screenshot/3.png" width="285"/> | <img src="/screenshot/4.png" width="285"/> |
+| :--: | :--: | :--: | :--: | 
+| 首页 | 体系 | 导航 | 项目 | 
 
 # :pencil:Todo
 
+- cookie持久化
+- 注册
+- 启动页
+- mvp封装 简化
+- 退出
+- 搜索
+- 收藏
+- 分享
+- 主题
+- 字体
 
 # :point_right:感谢
 
