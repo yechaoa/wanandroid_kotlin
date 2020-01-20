@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".module.project.ProjectFragment">
 
-    <TextView
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/project_tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/title_project"
-        android:textSize="@dimen/sp_30" />
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabIndicatorFullWidth="false"
+        app:tabMode="scrollable"
+        app:tabIndicatorHeight="3dp"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabTextAppearance="@style/TabLayoutTextStyle"
+        app:tabTextColor="@color/gray" />
 
-</FrameLayout>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/project_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

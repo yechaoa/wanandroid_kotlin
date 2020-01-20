@@ -58,6 +58,17 @@ class API {
         @GET("navi/json")
         fun getNavi(): Observable<BaseBean<MutableList<Navi>>>
 
+
+        //-----------------------【 项目 】----------------------
+
+        //项目分类
+        @GET("project/tree/json")
+        fun getProject(): Observable<BaseBean<MutableList<Project>>>
+
+        //项目列表数据
+        @GET("project/list/{page}/json?")
+        fun getProjectChild(@Path("page") page: Int,@Query("cid") cid: Int): Observable<BaseBean<ProjectChild>>
+
     }
 
 }
