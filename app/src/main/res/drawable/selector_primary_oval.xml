@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="false" android:drawable="@drawable/shape_bg_primary_oval"/>
-    <item android:state_pressed="true" android:drawable="@drawable/shape_bg_primary_dart_oval"/>
+    <item android:state_pressed="false">
+        <shape>
+            <corners android:radius="999dp" />
+            <solid android:color="@color/colorPrimary" />
+        </shape>
+    </item>
+    <item android:state_pressed="true">
+        <shape>
+            <corners android:radius="999dp" />
+            <solid android:color="@color/colorPrimaryDark" />
+        </shape>
+    </item>
 </selector>
