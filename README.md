@@ -43,7 +43,7 @@
 
 # :package:环境
 
-* Android Studio 3.5.3
+* Android Studio 3.6.1
 * Kotlin 1.3.61
 
 
