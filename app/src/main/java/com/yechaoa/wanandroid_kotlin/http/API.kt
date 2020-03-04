@@ -31,7 +31,7 @@ class API {
             @Field("username") username: String?,
             @Field("password") password: String?,
             @Field("repassword") repassword: String?
-        ): Observable<BaseBean<String>>
+        ): Observable<BaseBean<User>>
 
 
         //-----------------------【首页相关】----------------------

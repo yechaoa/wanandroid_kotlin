@@ -2,13 +2,13 @@ package com.yechaoa.wanandroid_kotlin.module.login
 
 import android.content.Intent
 import android.view.View
-import android.widget.Toast
 import com.yechaoa.wanandroid_kotlin.R
 import com.yechaoa.wanandroid_kotlin.base.BaseActivity
 import com.yechaoa.wanandroid_kotlin.base.BaseBean
 import com.yechaoa.wanandroid_kotlin.bean.User
 import com.yechaoa.wanandroid_kotlin.common.MyConfig
 import com.yechaoa.wanandroid_kotlin.module.MainActivity
+import com.yechaoa.wanandroid_kotlin.module.register.RegisterActivity
 import com.yechaoa.yutilskt.SpUtilKt
 import com.yechaoa.yutilskt.ToastUtilKt
 import com.yechaoa.yutilskt.YUtilsKt
@@ -28,6 +28,10 @@ class LoginActivity : BaseActivity(), ILoginView {
 
     override fun initView() {
         setMyTitle("登录")
+
+        tv_register.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
 
         btn_login.setOnClickListener {
             attemptLogin()
