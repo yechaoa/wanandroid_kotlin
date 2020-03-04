@@ -3,6 +3,7 @@ package com.yechaoa.wanandroid_kotlin.base
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.yechaoa.yutilskt.YUtilsKt
 
@@ -49,6 +50,26 @@ abstract class BaseActivity: AppCompatActivity(), BaseView {
 
     override fun onErrorCode(bean: BaseBean<Any>) {
 
+    }
+
+    /**
+     * 统一处理返回键
+     */
+    protected fun setBackEnabled() {
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    /**
+     * 返回键
+     */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if (id == android.R.id.home) {
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {

@@ -1,6 +1,5 @@
 package com.yechaoa.wanandroid_kotlin.module
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.Menu
@@ -133,13 +132,11 @@ class MainActivity : BaseActivity() {
                     val builder = AlertDialog.Builder(this@MainActivity)
                     builder.setTitle("提示")
                     builder.setMessage("确定退出？")
-                    builder.setPositiveButton(
-                        "确定",
-                        DialogInterface.OnClickListener { dialogInterface, i ->
-                            SpUtilKt.setBoolean(MyConfig.IS_LOGIN, false)
-                            startActivity(Intent(this@MainActivity, LoginActivity::class.java))
-                            finish()
-                        })
+                    builder.setPositiveButton("确定") { _, _ ->
+                        SpUtilKt.setBoolean(MyConfig.IS_LOGIN, false)
+                        startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+                        finish()
+                    }
                     builder.setNegativeButton("取消", null)
                     builder.create().show()
                 }
@@ -222,8 +219,8 @@ class MainActivity : BaseActivity() {
     /**
      * toolbar菜单事件
      */
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.action_search -> {
                 ToastUtilKt.showCenterToast("搜索")
             }

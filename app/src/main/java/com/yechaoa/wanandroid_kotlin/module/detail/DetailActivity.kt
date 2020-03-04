@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.Gravity
 import android.view.KeyEvent
-import android.view.MenuItem
 import android.webkit.WebSettings
 import android.widget.FrameLayout
 import android.widget.LinearLayout
@@ -31,8 +30,7 @@ class DetailActivity : BaseActivity() {
 
     override fun initView() {
         setMyTitle(intent.getStringExtra(WEB_TITLE))
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setBackEnabled()
 
         initAgentWeb()
     }
@@ -67,8 +65,9 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun addBGChild(frameLayout: FrameLayout) {
+        val title="技术由 AgentWeb 提供"
         val mTextView = TextView(frameLayout.context)
-        mTextView.text = "技术由 AgentWeb 提供"
+        mTextView.text = title
         mTextView.textSize = 16f
         mTextView.setTextColor(Color.parseColor("#727779"))
         frameLayout.setBackgroundColor(Color.parseColor("#272b2d"))
@@ -106,18 +105,6 @@ class DetailActivity : BaseActivity() {
     override fun onDestroy() {
         mAgentWeb.webLifeCycle.onDestroy()
         super.onDestroy()
-    }
-
-    /**
-     * 返回键
-     */
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-        if (id == android.R.id.home) {
-            finish()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
     }
 
 }
