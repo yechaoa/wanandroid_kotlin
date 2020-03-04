@@ -1,11 +1,13 @@
 package com.yechaoa.wanandroid_kotlin.module
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
@@ -128,10 +130,18 @@ class MainActivity : BaseActivity() {
 //                    startActivity(Intent(this, AboutActivity::class.java))
                 }
                 R.id.nav_logout -> {
-                    //todo dialog提示
-                    SpUtilKt.setBoolean(MyConfig.IS_LOGIN, false)
-                    startActivity(Intent(this@MainActivity, LoginActivity::class.java))
-                    finish()
+                    val builder = AlertDialog.Builder(this@MainActivity)
+                    builder.setTitle("提示")
+                    builder.setMessage("确定退出？")
+                    builder.setPositiveButton(
+                        "确定",
+                        DialogInterface.OnClickListener { dialogInterface, i ->
+                            SpUtilKt.setBoolean(MyConfig.IS_LOGIN, false)
+                            startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+                            finish()
+                        })
+                    builder.setNegativeButton("取消", null)
+                    builder.create().show()
                 }
             }
 
