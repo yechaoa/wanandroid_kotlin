@@ -20,6 +20,7 @@ import com.yechaoa.wanandroid_kotlin.module.home.HomeFragment
 import com.yechaoa.wanandroid_kotlin.module.login.LoginActivity
 import com.yechaoa.wanandroid_kotlin.module.navi.NaviFragment
 import com.yechaoa.wanandroid_kotlin.module.project.ProjectFragment
+import com.yechaoa.wanandroid_kotlin.module.search.SearchActivity
 import com.yechaoa.wanandroid_kotlin.module.tree.TreeFragment
 import com.yechaoa.yutilskt.ActivityUtilKt
 import com.yechaoa.yutilskt.SpUtilKt
@@ -119,7 +120,7 @@ class MainActivity : BaseActivity() {
             when (it.itemId) {
                 R.id.nav_collect -> {
                     ToastUtilKt.showCenterToast("收藏")
-//                    startActivity(Intent(this, CollectActivity::class.java))
+//                    startActivity(Intent(this, SearchActivity::class.java))
                 }
                 R.id.nav_share -> {
                     ToastUtilKt.showCenterToast("分享")
@@ -223,6 +224,7 @@ class MainActivity : BaseActivity() {
         when (item.itemId) {
             R.id.action_search -> {
                 ToastUtilKt.showCenterToast("搜索")
+                startActivity(Intent(this, SearchActivity::class.java))
             }
             R.id.action_settings -> {
                 ToastUtilKt.showCenterToast("设置")

@@ -69,6 +69,14 @@ class API {
         @GET("project/list/{page}/json?")
         fun getProjectChild(@Path("page") page: Int,@Query("cid") cid: Int): Observable<BaseBean<ProjectChild>>
 
+
+        //-----------------------【 搜索 】----------------------
+
+        //搜索
+        @FormUrlEncoded
+        @POST("article/query/{page}/json?")
+        fun getSearchList(@Path("page") page: Int,@Field("k") k: String): Observable<BaseBean<Article>>
+
     }
 
 }
