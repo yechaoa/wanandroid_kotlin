@@ -12,4 +12,27 @@
     <string name="action_search">搜索</string>
     <string name="action_settings">设置</string>
 
+    <string name="title_activity_about">关于</string>
+
+    <string name="large_text">
+        "用到的库：\n\n"
+
+        "YUtils\n\n"
+
+        "retrofit\n\n"
+
+        "rxjava2\n\n"
+
+        "BRVAH\n\n"
+
+        "banner\n\n"
+
+        "glide\n\n"
+
+        "agentweb\n\n"
+
+        "VerticalTabLayout\n\n"
+
+    </string>
+
 </resources>

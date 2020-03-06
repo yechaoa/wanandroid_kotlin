@@ -16,6 +16,7 @@ import com.yechaoa.wanandroid_kotlin.R
 import com.yechaoa.wanandroid_kotlin.adapter.CommonViewPagerAdapter
 import com.yechaoa.wanandroid_kotlin.base.BaseActivity
 import com.yechaoa.wanandroid_kotlin.common.MyConfig
+import com.yechaoa.wanandroid_kotlin.module.about.AboutActivity
 import com.yechaoa.wanandroid_kotlin.module.home.HomeFragment
 import com.yechaoa.wanandroid_kotlin.module.login.LoginActivity
 import com.yechaoa.wanandroid_kotlin.module.navi.NaviFragment
@@ -126,8 +127,7 @@ class MainActivity : BaseActivity() {
                     ToastUtilKt.showCenterToast("分享")
                 }
                 R.id.nav_about -> {
-                    ToastUtilKt.showCenterToast("关于")
-//                    startActivity(Intent(this, AboutActivity::class.java))
+                    startActivity(Intent(this, AboutActivity::class.java))
                 }
                 R.id.nav_logout -> {
                     val builder = AlertDialog.Builder(this@MainActivity)

@@ -7,6 +7,8 @@
     <dimen name="nav_header_height">186dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <dimen name="app_bar_height">200dp</dimen>
+
     <dimen name="sp_30">30sp</dimen>
     <dimen name="sp_24">24sp</dimen>
     <dimen name="sp_22">22sp</dimen>
@@ -37,4 +39,5 @@
     <dimen name="dp_4">4dp</dimen>
     <dimen name="dp_2">2dp</dimen>
     <dimen name="dp_0">0dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>
