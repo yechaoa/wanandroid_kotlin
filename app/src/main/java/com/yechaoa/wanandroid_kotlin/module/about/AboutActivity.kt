@@ -1,8 +1,10 @@
 package com.yechaoa.wanandroid_kotlin.module.about
 
 import android.content.Intent
+import android.content.res.AssetManager
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
@@ -39,6 +41,7 @@ class AboutActivity : AppCompatActivity() {
         tv_app_info.text =
             resources.getString(R.string.app_name) + "  V" + YUtilsKt.getVersionName()
 
+        //添加下划线
         tv_github.paint.flags = Paint.UNDERLINE_TEXT_FLAG
 
         tv_github.setOnClickListener {
@@ -52,6 +55,20 @@ class AboutActivity : AppCompatActivity() {
             Snackbar.make(it, "分享", Snackbar.LENGTH_SHORT).show()
         }
 
+        setTypeface()
+    }
+
+    /**
+     * 设置字体
+     */
+    private fun setTypeface() {
+        //获取AssetManager
+        val assets = assets as AssetManager
+        //根据路径得到字体
+        val typeface = Typeface.createFromAsset(assets, "fonts/mononoki-Regular.ttf")
+        //设置给textview
+        tv_library.typeface = typeface
+        tv_github.typeface = typeface
     }
 
     /**
