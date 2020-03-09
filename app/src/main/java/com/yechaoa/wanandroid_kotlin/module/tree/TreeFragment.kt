@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_tree.*
  */
 class TreeFragment : BaseFragment(), ITreeView {
 
-    lateinit var mTreePresenter: TreePresenter
+    private lateinit var mTreePresenter: TreePresenter
 
     override fun createPresenter() {
         mTreePresenter = TreePresenter(this)
@@ -28,7 +28,22 @@ class TreeFragment : BaseFragment(), ITreeView {
     }
 
     override fun initView() {
+        initSwipeRefreshLayout()
         recycler_view.layoutManager = LinearLayoutManager(mContext)
+    }
+
+    private fun initSwipeRefreshLayout() {
+        swipe_refresh.setColorSchemeResources(
+            android.R.color.holo_blue_bright,
+            android.R.color.holo_green_light,
+            android.R.color.holo_orange_light
+        )
+        swipe_refresh.setOnRefreshListener {
+            swipe_refresh.postDelayed({
+                mTreePresenter.getTree()
+                swipe_refresh.isRefreshing = false
+            }, 1500)
+        }
     }
 
     override fun initData() {
@@ -37,7 +52,7 @@ class TreeFragment : BaseFragment(), ITreeView {
 
     override fun getTree(tree: BaseBean<MutableList<Tree>>) {
         val treeAdapter = TreeAdapter(tree.data)
-        treeAdapter.setOnItemClickListener { adapter, view, position ->
+        treeAdapter.setOnItemClickListener { _, _, position ->
             ToastUtilKt.showCenterToast(tree.data[position].name)
         }
         recycler_view.addItemDecoration(
