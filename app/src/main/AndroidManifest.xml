@@ -9,25 +9,26 @@
     <application
         android:name=".app.App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".module.login.LoginActivity">
+        <activity
+            android:name=".module.splash.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".module.login.LoginActivity" />
         <activity
             android:name=".module.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".module.register.RegisterActivity" />
         <activity android:name=".module.detail.DetailActivity" />
-
         <activity
             android:name=".module.about.AboutActivity"
             android:label="@string/title_activity_about"
