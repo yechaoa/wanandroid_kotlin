@@ -1,5 +1,5 @@
 # wanandroid_kotlin 【开发中】
-玩安卓Kotlin版，目前还是比较简陋的版本，年后一步一步完善。
+玩安卓Kotlin版，一步一步完善中。
 
 ![](https://img.shields.io/badge/language-kotlin-orange.svg)
 ![](https://img.shields.io/hexpm/l/plug.svg)
