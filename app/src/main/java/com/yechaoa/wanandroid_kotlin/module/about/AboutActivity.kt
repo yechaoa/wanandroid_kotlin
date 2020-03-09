@@ -53,9 +53,24 @@ class AboutActivity : AppCompatActivity() {
 
         fab.setOnClickListener {
             Snackbar.make(it, "分享", Snackbar.LENGTH_SHORT).show()
+
+            shareProject()
         }
 
         setTypeface()
+    }
+
+    /**
+     * 调用系统的分享功能
+     */
+    private fun shareProject() {
+        val intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_SUBJECT, "玩安卓")
+        intent.putExtra(Intent.EXTRA_TEXT, "https://github.com/yechaoa/wanandroid_kotlin")
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(Intent.createChooser(intent, "玩安卓"))
     }
 
     /**

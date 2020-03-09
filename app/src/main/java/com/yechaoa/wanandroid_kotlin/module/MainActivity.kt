@@ -121,10 +121,10 @@ class MainActivity : BaseActivity() {
             when (it.itemId) {
                 R.id.nav_collect -> {
                     ToastUtilKt.showCenterToast("收藏")
-//                    startActivity(Intent(this, SearchActivity::class.java))
+                    //startActivity(Intent(this, SearchActivity::class.java))
                 }
                 R.id.nav_share -> {
-                    ToastUtilKt.showCenterToast("分享")
+                    shareProject()
                 }
                 R.id.nav_about -> {
                     startActivity(Intent(this, AboutActivity::class.java))
@@ -207,6 +207,19 @@ class MainActivity : BaseActivity() {
             }
             false
         }
+    }
+
+    /**
+     * 调用系统的分享功能
+     */
+    private fun shareProject() {
+        val intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_SUBJECT, "玩安卓")
+        intent.putExtra(Intent.EXTRA_TEXT, "https://github.com/yechaoa/wanandroid_kotlin")
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(Intent.createChooser(intent, "玩安卓"))
     }
 
     /**
