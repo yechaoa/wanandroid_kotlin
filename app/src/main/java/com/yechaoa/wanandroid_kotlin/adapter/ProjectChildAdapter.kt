@@ -2,6 +2,7 @@ package com.yechaoa.wanandroid_kotlin.adapter
 
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.yechaoa.wanandroid_kotlin.R
 import com.yechaoa.wanandroid_kotlin.bean.DataX
@@ -11,7 +12,7 @@ import com.yechaoa.wanandroid_kotlin.bean.DataX
  * Describe :
  */
 class ProjectChildAdapter(data: MutableList<DataX>) :
-    BaseQuickAdapter<DataX, BaseViewHolder>(R.layout.item_project_child, data) {
+    BaseQuickAdapter<DataX, BaseViewHolder>(R.layout.item_project_child, data), LoadMoreModule {
 
     override fun convert(helper: BaseViewHolder, item: DataX?) {
         Glide.with(context).load(item?.envelopePic).into(helper.getView(R.id.iv_project_img))

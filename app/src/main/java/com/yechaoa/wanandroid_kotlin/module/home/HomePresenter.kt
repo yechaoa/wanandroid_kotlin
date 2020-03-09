@@ -45,6 +45,33 @@ class HomePresenter(homeView: IHomeView) {
             })
     }
 
+    fun getArticleMoreList(page: Int) {
+
+        RetrofitService.getApiService()
+            .getArticleList(page)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<BaseBean<Article>> {
+                override fun onComplete() {
+                    LogUtilKt.i("onComplete")
+                }
+
+                override fun onSubscribe(d: Disposable) {
+                    LogUtilKt.i("onSubscribe")
+                }
+
+                override fun onNext(t: BaseBean<Article>) {
+                    LogUtilKt.i("onNext")
+                    mIHomeView.getArticleMoreList(t)
+                }
+
+                override fun onError(e: Throwable) {
+                    LogUtilKt.i("onError")
+                    mIHomeView.getArticleMoreError("获取失败(°∀°)ﾉ" + e.message)
+                }
+            })
+    }
+
     fun getBanner() {
         RetrofitService.getApiService()
             .getBanner()

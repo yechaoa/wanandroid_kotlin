@@ -14,4 +14,8 @@ interface IProjectChildView : BaseView {
 
     fun getProjectChildError(msg: String)
 
+    fun getProjectMoreChild(projectChild: BaseBean<ProjectChild>)
+
+    fun getProjectChildMoreError(msg: String)
+
 }

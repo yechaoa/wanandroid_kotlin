@@ -39,4 +39,27 @@ class SearchPresenter(searchView: ISearchView) {
             })
     }
 
+    fun getArticleMoreList(page: Int, key: String) {
+
+        RetrofitService.getApiService()
+            .getSearchList(page, key)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<BaseBean<Article>> {
+                override fun onComplete() {
+                }
+
+                override fun onSubscribe(d: Disposable) {
+                }
+
+                override fun onNext(t: BaseBean<Article>) {
+                    mSearchView.getArticleMoreList(t)
+                }
+
+                override fun onError(e: Throwable) {
+                    mSearchView.getArticleMoreError("获取失败(°∀°)ﾉ" + e.message)
+                }
+            })
+    }
+
 }

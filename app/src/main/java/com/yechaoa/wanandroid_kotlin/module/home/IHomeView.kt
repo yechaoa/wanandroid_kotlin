@@ -19,4 +19,8 @@ interface IHomeView : BaseView {
 
     fun getArticleError(msg: String)
 
+    fun getArticleMoreList(article: BaseBean<Article>)
+
+    fun getArticleMoreError(msg: String)
+
 }

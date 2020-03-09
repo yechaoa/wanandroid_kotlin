@@ -223,7 +223,6 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_search -> {
-                ToastUtilKt.showCenterToast("搜索")
                 startActivity(Intent(this, SearchActivity::class.java))
             }
             R.id.action_settings -> {

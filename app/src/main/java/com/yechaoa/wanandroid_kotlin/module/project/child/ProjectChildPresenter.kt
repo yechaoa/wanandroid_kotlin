@@ -42,5 +42,30 @@ class ProjectChildPresenter(projectChildView: IProjectChildView) {
                 }
             })
     }
+    fun getProjectMoreChild(page: Int, cid: Int) {
+        RetrofitService.getApiService()
+            .getProjectChild(page, cid)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<BaseBean<ProjectChild>> {
+                override fun onComplete() {
+                    LogUtilKt.i("onComplete")
+                }
+
+                override fun onSubscribe(d: Disposable) {
+                    LogUtilKt.i("onSubscribe")
+                }
+
+                override fun onNext(t: BaseBean<ProjectChild>) {
+                    LogUtilKt.i("onNext")
+                    mIProjectChildView.getProjectMoreChild(t)
+                }
+
+                override fun onError(e: Throwable) {
+                    LogUtilKt.i("onError")
+                    mIProjectChildView.getProjectChildMoreError("获取失败(°∀°)ﾉ" + e.message)
+                }
+            })
+    }
 
 }
