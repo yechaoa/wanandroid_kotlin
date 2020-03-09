@@ -20,7 +20,7 @@ class SplashActivity : BaseActivity() {
         object : Thread() {
             override fun run() {
                 try {
-                    sleep(2000)
+                    sleep(1000)
                     if (SpUtilKt.getBoolean(MyConfig.IS_LOGIN)) {
                         startActivity(Intent(this@SplashActivity, MainActivity::class.java))
                     } else {
