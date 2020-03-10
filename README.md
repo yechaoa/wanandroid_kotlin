@@ -1,4 +1,4 @@
-# wanandroid_kotlin 【开发中】
+# wanandroid_kotlin
 玩安卓Kotlin版，一步一步完善中。
 
 ![](https://img.shields.io/badge/language-kotlin-orange.svg)
@@ -29,7 +29,6 @@
 - [x] 关于我们
 - [x] 下拉刷新
 - [x] 上拉加载
-- [ ] mvp封装 简化
 - [ ] cookie持久化
 
 # :point_right:感谢
