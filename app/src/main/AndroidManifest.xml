@@ -14,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".module.collect.CollectActivity"/>
         <activity
             android:name=".module.splash.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">

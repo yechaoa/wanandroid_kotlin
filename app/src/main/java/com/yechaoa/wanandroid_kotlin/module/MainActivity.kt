@@ -17,6 +17,7 @@ import com.yechaoa.wanandroid_kotlin.adapter.CommonViewPagerAdapter
 import com.yechaoa.wanandroid_kotlin.base.BaseActivity
 import com.yechaoa.wanandroid_kotlin.common.MyConfig
 import com.yechaoa.wanandroid_kotlin.module.about.AboutActivity
+import com.yechaoa.wanandroid_kotlin.module.collect.CollectActivity
 import com.yechaoa.wanandroid_kotlin.module.home.HomeFragment
 import com.yechaoa.wanandroid_kotlin.module.login.LoginActivity
 import com.yechaoa.wanandroid_kotlin.module.navi.NaviFragment
@@ -120,8 +121,7 @@ class MainActivity : BaseActivity() {
             // Handle navigation view item clicks here.
             when (it.itemId) {
                 R.id.nav_collect -> {
-                    ToastUtilKt.showCenterToast("收藏")
-                    //startActivity(Intent(this, SearchActivity::class.java))
+                    startActivity(Intent(this, CollectActivity::class.java))
                 }
                 R.id.nav_share -> {
                     shareProject()

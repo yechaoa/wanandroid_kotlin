@@ -77,6 +77,13 @@ class API {
         @POST("article/query/{page}/json?")
         fun getSearchList(@Path("page") page: Int,@Field("k") k: String): Observable<BaseBean<Article>>
 
+
+        //-----------------------【 收藏 】----------------------
+
+        //收藏文章列表
+        @GET("lg/collect/list/{page}/json?")
+        fun getCollectList(@Path("page") page: Int): Observable<BaseBean<Collect>>
+
     }
 
 }
