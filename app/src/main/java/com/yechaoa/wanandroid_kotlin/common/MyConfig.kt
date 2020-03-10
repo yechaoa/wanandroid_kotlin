@@ -10,6 +10,8 @@ class MyConfig{
 
         const val IS_LOGIN="isLogin"
 
+        const val COOKIE="cookie"
+
     }
 
 }

@@ -1,5 +1,7 @@
 package com.yechaoa.wanandroid_kotlin.http
 
+import com.yechaoa.wanandroid_kotlin.http.interceptor.AddCookiesInterceptor
+import com.yechaoa.wanandroid_kotlin.http.interceptor.ReceivedCookiesInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -26,6 +28,8 @@ object RetrofitService {
 
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(AddCookiesInterceptor())
+            .addInterceptor(ReceivedCookiesInterceptor())
             .connectTimeout(15, TimeUnit.SECONDS)
             .build()
 
