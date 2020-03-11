@@ -4,13 +4,9 @@
     <color name="colorPrimaryDark">#512DA8</color>
     <color name="colorAccent">#7C4DFF</color>
 
-
     <color name="black">#212121</color>
     <color name="gray">#757575</color>
     <color name="line">#DCDCDC</color>
     <color name="white">#FFFFFF</color>
-    <color name="red">#FF0000</color>
-    <color name="yellow">#FFFF00</color>
-    <color name="orange">#FF8C00</color>
 
 </resources>
