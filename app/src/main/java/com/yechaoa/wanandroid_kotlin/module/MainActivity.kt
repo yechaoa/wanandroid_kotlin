@@ -135,6 +135,7 @@ class MainActivity : BaseActivity() {
                     builder.setMessage("确定退出？")
                     builder.setPositiveButton("确定") { _, _ ->
                         SpUtilKt.setBoolean(MyConfig.IS_LOGIN, false)
+                        SpUtilKt.removeByKey(MyConfig.COOKIE)
                         startActivity(Intent(this@MainActivity, LoginActivity::class.java))
                         finish()
                     }

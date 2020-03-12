@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
 import com.yechaoa.wanandroid_kotlin.R
 import com.yechaoa.wanandroid_kotlin.module.detail.DetailActivity
 import com.yechaoa.yutilskt.YUtilsKt
@@ -38,8 +37,7 @@ class AboutActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setHomeButtonEnabled(true)
 
-        tv_app_info.text =
-            resources.getString(R.string.app_name) + "  V" + YUtilsKt.getVersionName()
+        tv_app_info.text = "玩安卓  V" + YUtilsKt.getVersionName()
 
         //添加下划线
         tv_github.paint.flags = Paint.UNDERLINE_TEXT_FLAG
@@ -52,8 +50,6 @@ class AboutActivity : AppCompatActivity() {
         }
 
         fab.setOnClickListener {
-            Snackbar.make(it, "分享", Snackbar.LENGTH_SHORT).show()
-
             shareProject()
         }
 
