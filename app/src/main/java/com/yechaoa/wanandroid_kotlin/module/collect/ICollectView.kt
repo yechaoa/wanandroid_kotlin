@@ -20,4 +20,5 @@ interface ICollectView : BaseView {
 
     fun getCollectMoreError(msg: String)
 
+    fun unCollect(msg: String)
 }

@@ -60,5 +60,22 @@ class CollectPresenter(collectView: ICollectView) {
             })
     }
 
+    fun unCollect(id: Int, originId: Int) {
+        RetrofitService.getApiService()
+            .unCollect1(id, originId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<BaseBean<String>> {
+                override fun onComplete() {}
+
+                override fun onSubscribe(d: Disposable) {}
+
+                override fun onNext(t: BaseBean<String>) {
+                    mICollectView.unCollect("取消成功 (°∀°)ﾉ")
+                }
+
+                override fun onError(e: Throwable) {}
+            })
+    }
 
 }

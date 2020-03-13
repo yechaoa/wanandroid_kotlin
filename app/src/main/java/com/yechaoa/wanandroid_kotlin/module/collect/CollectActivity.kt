@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.chad.library.adapter.base.listener.OnLoadMoreListener
 import com.yechaoa.wanandroid_kotlin.R
@@ -20,11 +21,12 @@ import com.yechaoa.yutilskt.ToastUtilKt
 import kotlinx.android.synthetic.main.activity_collect.*
 
 class CollectActivity : BaseActivity(), ICollectView, OnItemClickListener, OnLoadMoreListener,
-    SwipeRefreshLayout.OnRefreshListener {
+    SwipeRefreshLayout.OnRefreshListener, OnItemChildClickListener {
 
     private lateinit var mCollectPresenter: CollectPresenter
     private lateinit var mCollectAdapter: CollectAdapter
     private lateinit var mDataList: MutableList<CollectDetail>
+    private var mPosition: Int = 0
 
     companion object {
         private const val TOTAL_COUNTER = 20//每次加载数量
@@ -68,6 +70,8 @@ class CollectActivity : BaseActivity(), ICollectView, OnItemClickListener, OnLoa
         mCollectAdapter.animationEnable = true
         //item点击
         mCollectAdapter.setOnItemClickListener(this)
+        //item子view点击
+        mCollectAdapter.setOnItemChildClickListener(this)
         //加载更多
         mCollectAdapter.loadMoreModule?.setOnLoadMoreListener(this)
         recycler_view.adapter = mCollectAdapter
@@ -105,6 +109,12 @@ class CollectActivity : BaseActivity(), ICollectView, OnItemClickListener, OnLoa
         ToastUtilKt.showCenterToast(msg)
     }
 
+    override fun unCollect(msg: String) {
+        ToastUtilKt.showCenterToast(msg)
+        mCollectAdapter.remove(mPosition)
+//        mCollectAdapter.notifyDataSetChanged()
+    }
+
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra(DetailActivity.WEB_URL, mDataList[position].link)
@@ -134,4 +144,16 @@ class CollectActivity : BaseActivity(), ICollectView, OnItemClickListener, OnLoa
             swipe_refresh.isRefreshing = false
         }, 1500)
     }
+
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+        mPosition = position
+
+        val oid: Int = if (-1 < mDataList[position].originId)
+            mDataList[position].originId
+        else
+            -1
+
+        mCollectPresenter.unCollect(mDataList[position].id, oid)
+    }
+
 }

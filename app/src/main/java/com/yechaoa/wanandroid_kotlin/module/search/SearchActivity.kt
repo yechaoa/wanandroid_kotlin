@@ -5,11 +5,13 @@ import android.view.Menu
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuItemCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.chad.library.adapter.base.listener.OnLoadMoreListener
 import com.yechaoa.wanandroid_kotlin.R
@@ -19,16 +21,19 @@ import com.yechaoa.wanandroid_kotlin.base.BaseBean
 import com.yechaoa.wanandroid_kotlin.bean.Article
 import com.yechaoa.wanandroid_kotlin.bean.ArticleDetail
 import com.yechaoa.wanandroid_kotlin.module.detail.DetailActivity
+import com.yechaoa.wanandroid_kotlin.module.login.LoginActivity
 import com.yechaoa.yutilskt.LogUtilKt
 import com.yechaoa.yutilskt.ToastUtilKt
 import kotlinx.android.synthetic.main.activity_search.*
 
-class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadMoreListener {
+class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadMoreListener,
+    OnItemChildClickListener {
 
     lateinit var mSearchPresenter: SearchPresenter
-    lateinit var mDataList: MutableList<ArticleDetail>
+    private lateinit var mDataList: MutableList<ArticleDetail>
     private lateinit var mArticleAdapter: ArticleAdapter
     private lateinit var mKey: String
+    private var mPosition: Int = 0
 
     companion object {
         private const val TOTAL_COUNTER = 20//每次加载数量
@@ -66,21 +71,21 @@ class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadM
         //搜索图标是否显示在搜索框内
         searchView.setIconifiedByDefault(true)
         //设置搜索框展开时是否显示提交按钮，可不显示
-        searchView.isSubmitButtonEnabled = true;
+        searchView.isSubmitButtonEnabled = true
         //让键盘的回车键设置成搜索
-        searchView.imeOptions = EditorInfo.IME_ACTION_SEARCH;
+        searchView.imeOptions = EditorInfo.IME_ACTION_SEARCH
         //搜索框是否展开，false表示展开
-        searchView.isIconified = false;
+        searchView.isIconified = false
         //获取焦点
-        searchView.isFocusable = true;
-        searchView.requestFocusFromTouch();
+        searchView.isFocusable = true
+        searchView.requestFocusFromTouch()
         //设置提示词
-        searchView.queryHint = "请输入关键字";
+        searchView.queryHint = "请输入关键字"
 
         //设置输入框文字颜色
         val editText = searchView.findViewById(androidx.appcompat.R.id.search_src_text) as EditText
-        editText.setHintTextColor(ContextCompat.getColor(this, R.color.white));
-        editText.setTextColor(ContextCompat.getColor(this, R.color.white));
+        editText.setHintTextColor(ContextCompat.getColor(this, R.color.white))
+        editText.setTextColor(ContextCompat.getColor(this, R.color.white))
 
         //设置搜索文本监听
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -99,7 +104,7 @@ class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadM
                 //搜索请求
                 mSearchPresenter.getArticleList(0, mKey)
                 //清除焦点，收软键盘
-                searchView.clearFocus();
+                searchView.clearFocus()
                 return false
             }
         })
@@ -115,6 +120,9 @@ class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadM
 
         //item点击事件
         mArticleAdapter.setOnItemClickListener(this)
+
+        //item子view点击事件
+        mArticleAdapter.setOnItemChildClickListener(this)
 
         //加载更多
         mArticleAdapter.loadMoreModule?.setOnLoadMoreListener(this)
@@ -150,6 +158,42 @@ class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadM
         } else {
             CURRENT_PAGE++
             mSearchPresenter.getArticleMoreList(CURRENT_PAGE, mKey)
+        }
+    }
+
+    override fun login(msg: String) {
+        showLoginDialog(msg)
+    }
+
+    private fun showLoginDialog(msg: String) {
+        val builder = AlertDialog.Builder(this@SearchActivity)
+        builder.setTitle("提示")
+        builder.setMessage(msg)
+        builder.setPositiveButton("确定") { _, _ ->
+            startActivity(Intent(this@SearchActivity, LoginActivity::class.java))
+        }
+        builder.setNegativeButton("取消", null)
+        builder.create().show()
+    }
+
+    override fun collect(msg: String) {
+        ToastUtilKt.showCenterToast(msg)
+        mDataList[mPosition].collect = true
+        mArticleAdapter.notifyDataSetChanged()
+    }
+
+    override fun unCollect(msg: String) {
+        ToastUtilKt.showCenterToast(msg)
+        mDataList[mPosition].collect = false
+        mArticleAdapter.notifyDataSetChanged()
+    }
+
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+        mPosition = position
+        if (mDataList[position].collect) {
+            mSearchPresenter.unCollect(mDataList[position].id)
+        } else {
+            mSearchPresenter.collect(mDataList[position].id)
         }
     }
 }

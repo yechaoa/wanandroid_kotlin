@@ -1,6 +1,7 @@
 package com.yechaoa.wanandroid_kotlin.adapter
 
 import android.text.Html
+import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
@@ -20,7 +21,7 @@ class CollectAdapter(data: MutableList<CollectDetail>) : BaseQuickAdapter<Collec
         helper.setText(R.id.article_chapter, item.chapterName)
         //helper.setText(R.id.article_author, item.author)
         helper.setText(R.id.article_date, item.niceDate)
-
+        Glide.with(context).load(R.drawable.ic_like_checked).into(helper.getView(R.id.article_favorite))
         addChildClickViewIds(R.id.article_favorite)
     }
 }

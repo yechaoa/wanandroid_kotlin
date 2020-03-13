@@ -2,6 +2,7 @@ package com.yechaoa.wanandroid_kotlin.module.home
 
 import android.content.Intent
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -16,6 +17,7 @@ import com.yechaoa.wanandroid_kotlin.bean.Article
 import com.yechaoa.wanandroid_kotlin.bean.ArticleDetail
 import com.yechaoa.wanandroid_kotlin.bean.Banner
 import com.yechaoa.wanandroid_kotlin.module.detail.DetailActivity
+import com.yechaoa.wanandroid_kotlin.module.login.LoginActivity
 import com.yechaoa.wanandroid_kotlin.utils.GlideImageLoader
 import com.yechaoa.yutilskt.ToastUtilKt
 import com.yechaoa.yutilskt.YUtilsKt
@@ -38,10 +40,11 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener, OnLoadMoreList
         private var CURRENT_PAGE = 0//当前加载页数
     }
 
-    lateinit var mHomePresenter: HomePresenter
-    lateinit var mDataList: MutableList<ArticleDetail>
+    private lateinit var mHomePresenter: HomePresenter
+    private lateinit var mDataList: MutableList<ArticleDetail>
     private lateinit var bannerList: List<Banner>
     private lateinit var mArticleAdapter: ArticleAdapter
+    private var mPosition: Int = 0
 
     override fun createPresenter() {
         mHomePresenter = HomePresenter(this)
@@ -121,6 +124,33 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener, OnLoadMoreList
         ToastUtilKt.showCenterToast(msg)
     }
 
+    override fun login(msg: String) {
+        showLoginDialog(msg)
+    }
+
+    private fun showLoginDialog(msg: String) {
+        val builder = AlertDialog.Builder(mContext)
+        builder.setTitle("提示")
+        builder.setMessage(msg)
+        builder.setPositiveButton("确定") { _, _ ->
+            startActivity(Intent(mContext, LoginActivity::class.java))
+        }
+        builder.setNegativeButton("取消", null)
+        builder.create().show()
+    }
+
+    override fun collect(msg: String) {
+        ToastUtilKt.showCenterToast(msg)
+        mDataList[mPosition].collect=true
+        mArticleAdapter.notifyDataSetChanged()
+    }
+
+    override fun unCollect(msg: String) {
+        ToastUtilKt.showCenterToast(msg)
+        mDataList[mPosition].collect=false
+        mArticleAdapter.notifyDataSetChanged()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         //结束轮播
@@ -135,7 +165,7 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener, OnLoadMoreList
     }
 
     override fun onLoadMore() {
-        recycler_view.postDelayed(Runnable {
+        recycler_view.postDelayed({
             if (CURRENT_SIZE < TOTAL_COUNTER) {
                 mArticleAdapter.loadMoreModule?.loadMoreEnd(true)
             } else {
@@ -153,7 +183,12 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener, OnLoadMoreList
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-        ToastUtilKt.showCenterToast("收藏$position")
+        mPosition = position
+        if (mDataList[position].collect) {
+            mHomePresenter.unCollect(mDataList[position].id)
+        } else {
+            mHomePresenter.collect(mDataList[position].id)
+        }
     }
 
 }

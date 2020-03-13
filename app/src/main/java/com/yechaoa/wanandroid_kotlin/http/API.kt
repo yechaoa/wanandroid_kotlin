@@ -22,7 +22,10 @@ class API {
         //登录
         @FormUrlEncoded
         @POST("user/login")
-        fun login(@Field("username") username: String?, @Field("password") password: String?): Observable<BaseBean<User>>
+        fun login(
+            @Field("username") username: String?,
+            @Field("password") password: String?
+        ): Observable<BaseBean<User>>
 
         //注册
         @FormUrlEncoded
@@ -67,7 +70,10 @@ class API {
 
         //项目列表数据
         @GET("project/list/{page}/json?")
-        fun getProjectChild(@Path("page") page: Int,@Query("cid") cid: Int): Observable<BaseBean<ProjectChild>>
+        fun getProjectChild(
+            @Path("page") page: Int,
+            @Query("cid") cid: Int
+        ): Observable<BaseBean<ProjectChild>>
 
 
         //-----------------------【 搜索 】----------------------
@@ -75,7 +81,10 @@ class API {
         //搜索
         @FormUrlEncoded
         @POST("article/query/{page}/json?")
-        fun getSearchList(@Path("page") page: Int,@Field("k") k: String): Observable<BaseBean<Article>>
+        fun getSearchList(
+            @Path("page") page: Int,
+            @Field("k") k: String
+        ): Observable<BaseBean<Article>>
 
 
         //-----------------------【 收藏 】----------------------
@@ -83,6 +92,22 @@ class API {
         //收藏文章列表
         @GET("lg/collect/list/{page}/json?")
         fun getCollectList(@Path("page") page: Int): Observable<BaseBean<Collect>>
+
+        //收藏站内文章
+        @POST("lg/collect/{id}/json")
+        fun collect(@Path("id") id: Int): Observable<BaseBean<String>>
+
+        //取消收藏（文章列表）
+        @POST("lg/uncollect_originId/{id}/json")
+        fun unCollect(@Path("id") id: Int): Observable<BaseBean<String>>
+
+        //取消收藏（我的收藏页面）
+        @FormUrlEncoded
+        @POST("lg/uncollect/{id}/json")
+        fun unCollect1(
+            @Path("id") id: Int,
+            @Field("originId") originId: Int
+        ): Observable<BaseBean<String>>
 
     }
 

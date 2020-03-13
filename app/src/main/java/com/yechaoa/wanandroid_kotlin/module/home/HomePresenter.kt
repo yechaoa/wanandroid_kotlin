@@ -98,4 +98,48 @@ class HomePresenter(homeView: IHomeView) {
             })
     }
 
+    fun collect(id: Int) {
+        RetrofitService.getApiService()
+            .collect(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<BaseBean<String>> {
+                override fun onComplete() {}
+
+                override fun onSubscribe(d: Disposable) {}
+
+                override fun onNext(t: BaseBean<String>) {
+                    if (-1001 == t.errorCode) {
+                        mIHomeView.login(t.errorMsg + "(°∀°)ﾉ")
+                    } else {
+                        mIHomeView.collect("收藏成功 (°∀°)ﾉ")
+                    }
+                }
+
+                override fun onError(e: Throwable) {
+                    LogUtilKt.i("onError")
+                }
+            })
+    }
+
+    fun unCollect(id: Int) {
+        RetrofitService.getApiService()
+            .unCollect(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<BaseBean<String>> {
+                override fun onComplete() {}
+
+                override fun onSubscribe(d: Disposable) {}
+
+                override fun onNext(t: BaseBean<String>) {
+                    mIHomeView.unCollect("取消成功 (°∀°)ﾉ")
+                }
+
+                override fun onError(e: Throwable) {
+                    LogUtilKt.i("onError")
+                }
+            })
+    }
+
 }

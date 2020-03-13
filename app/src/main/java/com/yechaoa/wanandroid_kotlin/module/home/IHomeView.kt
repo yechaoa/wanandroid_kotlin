@@ -23,4 +23,10 @@ interface IHomeView : BaseView {
 
     fun getArticleMoreError(msg: String)
 
+    fun login(msg: String)
+
+    fun collect(msg: String)
+
+    fun unCollect(msg: String)
+
 }
