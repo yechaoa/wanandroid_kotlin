@@ -1,7 +1,6 @@
 package com.yechaoa.wanandroid_kotlin.module.project
 
 import com.yechaoa.wanandroid_kotlin.base.BaseBean
-import com.yechaoa.wanandroid_kotlin.bean.Navi
 import com.yechaoa.wanandroid_kotlin.bean.Project
 import com.yechaoa.wanandroid_kotlin.http.RetrofitService
 import com.yechaoa.yutilskt.LogUtilKt

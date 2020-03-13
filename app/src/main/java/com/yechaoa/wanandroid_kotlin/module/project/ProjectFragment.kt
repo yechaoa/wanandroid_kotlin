@@ -10,14 +10,14 @@ import com.yechaoa.wanandroid_kotlin.bean.Project
 import com.yechaoa.wanandroid_kotlin.module.project.child.ProjectChildFragment
 import com.yechaoa.yutilskt.ToastUtilKt
 import kotlinx.android.synthetic.main.fragment_project.*
-import java.util.ArrayList
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
  */
 class ProjectFragment : BaseFragment(), IProjectView {
 
-    lateinit var mProjectPresenter: ProjectPresenter
+    private lateinit var mProjectPresenter: ProjectPresenter
 
     override fun createPresenter() {
         mProjectPresenter = ProjectPresenter(this)
@@ -47,8 +47,8 @@ class ProjectFragment : BaseFragment(), IProjectView {
         for (i in titles.indices) {
             commonViewPagerAdapter.addFragment(ProjectChildFragment.newInstance(project.data[i].id))
         }
-        project_view_pager.adapter=commonViewPagerAdapter
-        project_view_pager.currentItem=0
+        project_view_pager.adapter = commonViewPagerAdapter
+        project_view_pager.currentItem = 0
     }
 
     override fun getProjectError(msg: String) {

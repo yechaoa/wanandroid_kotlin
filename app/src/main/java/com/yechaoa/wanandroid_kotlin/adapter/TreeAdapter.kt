@@ -20,7 +20,6 @@ class TreeAdapter(data: MutableList<Tree>) :
             items.add(item.children[i].name)
         }
         helper.setText(R.id.tv_tree_items, items.toString())
-
     }
 
 }

@@ -14,13 +14,11 @@ class CommonViewPagerAdapter : FragmentPagerAdapter {
     private var mTitles: List<String>? = null
     private var mFragments: MutableList<Fragment> = ArrayList()
 
-
     constructor(fm: FragmentManager?, titles: List<String>?) : super(fm!!) {
         mTitles = titles
     }
 
     constructor(fm: FragmentManager?) : super(fm!!)
-
 
     fun addFragment(fragment: Fragment) {
         mFragments.add(fragment)

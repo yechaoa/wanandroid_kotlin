@@ -48,7 +48,7 @@ class ProjectChildFragment : BaseFragment(), IProjectChildView, OnLoadMoreListen
 
     private var mCid: Int = 0
     private lateinit var mProjectChildPresenter: ProjectChildPresenter
-    lateinit var mDataList: MutableList<DataX>
+    private lateinit var mDataList: MutableList<DataX>
     private lateinit var mProjectChildAdapter: ProjectChildAdapter
 
     override fun createPresenter() {

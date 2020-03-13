@@ -23,8 +23,8 @@ import q.rorbin.verticaltablayout.widget.TabView
  */
 class NaviFragment : BaseFragment(), INaviView, VerticalTabLayout.OnTabSelectedListener {
 
-    lateinit var mNaviPresenter: NaviPresenter
-    lateinit var mNaviList: MutableList<Navi>
+    private lateinit var mNaviPresenter: NaviPresenter
+    private lateinit var mNaviList: MutableList<Navi>
 
     override fun createPresenter() {
         mNaviPresenter = NaviPresenter(this)
@@ -83,7 +83,7 @@ class NaviFragment : BaseFragment(), INaviView, VerticalTabLayout.OnTabSelectedL
          * 默认选中第一个
          */
         val naviAdapter = NaviAdapter(mNaviList[0].articles)
-        naviAdapter.setOnItemClickListener { adapter, view, pos ->
+        naviAdapter.setOnItemClickListener { _, _, pos ->
             val intent = Intent(mContext, DetailActivity::class.java)
             intent.putExtra(DetailActivity.WEB_URL, mNaviList[0].articles[pos].link)
             intent.putExtra(DetailActivity.WEB_TITLE, mNaviList[0].articles[pos].title)
@@ -103,7 +103,7 @@ class NaviFragment : BaseFragment(), INaviView, VerticalTabLayout.OnTabSelectedL
         ToastUtilKt.showCenterToast(mNaviList[position].name)
 
         val naviAdapter = NaviAdapter(mNaviList[position].articles)
-        naviAdapter.setOnItemClickListener { adapter, view, pos ->
+        naviAdapter.setOnItemClickListener { _, _, pos ->
             val intent = Intent(mContext, DetailActivity::class.java)
             intent.putExtra(DetailActivity.WEB_URL, mNaviList[position].articles[pos].link)
             intent.putExtra(DetailActivity.WEB_TITLE, mNaviList[position].articles[pos].title)
