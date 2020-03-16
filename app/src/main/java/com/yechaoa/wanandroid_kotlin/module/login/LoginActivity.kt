@@ -70,7 +70,7 @@ class LoginActivity : BaseActivity(), ILoginView {
     }
 
     private fun doLogin(username: String, password: String) {
-        YUtilsKt.showLoading(this, "测试加载中")
+        YUtilsKt.showLoading(this, "加载中")
         mLoginPresenter.submit(username, password)
     }
 
