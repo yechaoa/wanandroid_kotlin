@@ -6,10 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".module.search.SearchActivity">
 
+    <LinearLayout
+        android:id="@+id/ll_hotkey"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_15"
+            android:text="搜索热词"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold" />
+
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/flow_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:max_select="1" />
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

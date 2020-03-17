@@ -86,6 +86,9 @@ class API {
             @Field("k") k: String
         ): Observable<BaseBean<Article>>
 
+        //搜索热词
+        @GET("hotkey/json")
+        fun getHotkey(): Observable<BaseBean<MutableList<Hotkey>>>
 
         //-----------------------【 收藏 】----------------------
 

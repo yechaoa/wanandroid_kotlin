@@ -2,6 +2,7 @@ package com.yechaoa.wanandroid_kotlin.module.search
 
 import com.yechaoa.wanandroid_kotlin.base.BaseBean
 import com.yechaoa.wanandroid_kotlin.bean.Article
+import com.yechaoa.wanandroid_kotlin.bean.Hotkey
 import com.yechaoa.wanandroid_kotlin.http.RetrofitService
 import com.yechaoa.yutilskt.LogUtilKt
 import io.reactivex.Observer
@@ -16,6 +17,28 @@ import io.reactivex.schedulers.Schedulers
 class SearchPresenter(searchView: ISearchView) {
 
     private var mSearchView: ISearchView = searchView
+
+    fun getHotkey() {
+        RetrofitService.getApiService()
+            .getHotkey()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<BaseBean<MutableList<Hotkey>>> {
+                override fun onComplete() {
+                }
+
+                override fun onSubscribe(d: Disposable) {
+                }
+
+                override fun onNext(t: BaseBean<MutableList<Hotkey>>) {
+                    mSearchView.getHotkey(t)
+                }
+
+                override fun onError(e: Throwable) {
+                    mSearchView.getHotkeyError("获取失败(°∀°)ﾉ" + e.message)
+                }
+            })
+    }
 
     fun getArticleList(page: Int, key: String) {
 
