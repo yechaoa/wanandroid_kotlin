@@ -1,30 +1,36 @@
 package com.yechaoa.wanandroid_kotlin.module.navi
 
-
 import android.content.Intent
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import com.yechaoa.wanandroid_kotlin.R
-import com.yechaoa.wanandroid_kotlin.adapter.NaviAdapter
 import com.yechaoa.wanandroid_kotlin.base.BaseBean
 import com.yechaoa.wanandroid_kotlin.base.BaseFragment
+import com.yechaoa.wanandroid_kotlin.bean.ArticleX
 import com.yechaoa.wanandroid_kotlin.bean.Navi
 import com.yechaoa.wanandroid_kotlin.module.detail.DetailActivity
 import com.yechaoa.yutilskt.ToastUtilKt
+import com.zhy.view.flowlayout.FlowLayout
+import com.zhy.view.flowlayout.TagAdapter
+import com.zhy.view.flowlayout.TagFlowLayout
 import kotlinx.android.synthetic.main.fragment_navi.*
 import q.rorbin.verticaltablayout.VerticalTabLayout
 import q.rorbin.verticaltablayout.adapter.TabAdapter
 import q.rorbin.verticaltablayout.widget.ITabView.*
 import q.rorbin.verticaltablayout.widget.TabView
 
-
 /**
  * A simple [Fragment] subclass.
  */
-class NaviFragment : BaseFragment(), INaviView, VerticalTabLayout.OnTabSelectedListener {
+class NaviFragment : BaseFragment(), INaviView, VerticalTabLayout.OnTabSelectedListener,
+    TagFlowLayout.OnTagClickListener {
 
     private lateinit var mNaviPresenter: NaviPresenter
     private lateinit var mNaviList: MutableList<Navi>
+
+    private lateinit var mArticles: MutableList<ArticleX>
 
     override fun createPresenter() {
         mNaviPresenter = NaviPresenter(this)
@@ -35,7 +41,7 @@ class NaviFragment : BaseFragment(), INaviView, VerticalTabLayout.OnTabSelectedL
     }
 
     override fun initView() {
-        recycler_view.layoutManager = GridLayoutManager(mContext, 2)
+
     }
 
     override fun initData() {
@@ -73,7 +79,6 @@ class NaviFragment : BaseFragment(), INaviView, VerticalTabLayout.OnTabSelectedL
             }
         })
 
-
         /**
          * 设置点击事件
          */
@@ -82,14 +87,26 @@ class NaviFragment : BaseFragment(), INaviView, VerticalTabLayout.OnTabSelectedL
         /**
          * 默认选中第一个
          */
-        val naviAdapter = NaviAdapter(mNaviList[0].articles)
-        naviAdapter.setOnItemClickListener { _, _, pos ->
-            val intent = Intent(mContext, DetailActivity::class.java)
-            intent.putExtra(DetailActivity.WEB_URL, mNaviList[0].articles[pos].link)
-            intent.putExtra(DetailActivity.WEB_TITLE, mNaviList[0].articles[pos].title)
-            startActivity(intent)
+        mArticles = mNaviList[0].articles
+        setFlowLayout(mArticles)
+    }
+
+    /**
+     * 填充FlowLayout数据
+     */
+    private fun setFlowLayout(articles: MutableList<ArticleX>) {
+        flow_layout.adapter = object : TagAdapter<ArticleX>(articles) {
+            override fun getView(parent: FlowLayout, position: Int, s: ArticleX): View {
+                val tvTag = LayoutInflater.from(activity).inflate(
+                    R.layout.item_navi,
+                    flow_layout, false
+                ) as TextView
+                tvTag.text = s.title
+                return tvTag
+            }
         }
-        recycler_view.adapter = naviAdapter
+        //设置点击事件
+        flow_layout.setOnTagClickListener(this)
     }
 
     override fun getNaviError(msg: String) {
@@ -100,16 +117,8 @@ class NaviFragment : BaseFragment(), INaviView, VerticalTabLayout.OnTabSelectedL
      * Tab选中
      */
     override fun onTabSelected(tab: TabView?, position: Int) {
-        ToastUtilKt.showCenterToast(mNaviList[position].name)
-
-        val naviAdapter = NaviAdapter(mNaviList[position].articles)
-        naviAdapter.setOnItemClickListener { _, _, pos ->
-            val intent = Intent(mContext, DetailActivity::class.java)
-            intent.putExtra(DetailActivity.WEB_URL, mNaviList[position].articles[pos].link)
-            intent.putExtra(DetailActivity.WEB_TITLE, mNaviList[position].articles[pos].title)
-            startActivity(intent)
-        }
-        recycler_view.adapter = naviAdapter
+        mArticles = mNaviList[position].articles
+        setFlowLayout(mArticles)
     }
 
     /**
@@ -117,6 +126,17 @@ class NaviFragment : BaseFragment(), INaviView, VerticalTabLayout.OnTabSelectedL
      */
     override fun onTabReselected(tab: TabView?, position: Int) {
 
+    }
+
+    /**
+     * 标签点击事件
+     */
+    override fun onTagClick(view: View?, position: Int, parent: FlowLayout?): Boolean {
+        val intent = Intent(mContext, DetailActivity::class.java)
+        intent.putExtra(DetailActivity.WEB_URL, mArticles[position].link)
+        intent.putExtra(DetailActivity.WEB_TITLE, mArticles[position].title)
+        startActivity(intent)
+        return true
     }
 
 }

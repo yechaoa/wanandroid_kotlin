@@ -9,4 +9,7 @@
     <color name="line">#DCDCDC</color>
     <color name="white">#FFFFFF</color>
 
+    <color name="color_eaeaea">#eaeaea</color>
+    <color name="color_757575">#757575</color>
+
 </resources>
