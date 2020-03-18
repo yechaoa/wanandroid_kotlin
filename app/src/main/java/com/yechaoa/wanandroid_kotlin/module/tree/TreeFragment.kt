@@ -1,6 +1,7 @@
 package com.yechaoa.wanandroid_kotlin.module.tree
 
 
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,14 +11,17 @@ import com.yechaoa.wanandroid_kotlin.base.BaseBean
 import com.yechaoa.wanandroid_kotlin.base.BaseFragment
 import com.yechaoa.wanandroid_kotlin.bean.Tree
 import com.yechaoa.yutilskt.ToastUtilKt
+import com.zhy.view.flowlayout.FlowLayout
 import kotlinx.android.synthetic.main.fragment_tree.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class TreeFragment : BaseFragment(), ITreeView {
+class TreeFragment : BaseFragment(), ITreeView, TreeAdapter.OnItemTagClickListener {
 
     private lateinit var mTreePresenter: TreePresenter
+    private lateinit var mTreeList: MutableList<Tree>
+    private var mPosition: Int = 0
 
     override fun createPresenter() {
         mTreePresenter = TreePresenter(this)
@@ -51,21 +55,63 @@ class TreeFragment : BaseFragment(), ITreeView {
     }
 
     override fun getTree(tree: BaseBean<MutableList<Tree>>) {
+        mTreeList = tree.data
+
         val treeAdapter = TreeAdapter(tree.data)
+
+        //点击事件
         treeAdapter.setOnItemClickListener { _, _, position ->
-            ToastUtilKt.showCenterToast(tree.data[position].name)
+            mPosition = position
+            /**
+             * 方案一：单选效果，数据准确，但用户体验一般
+             * 先重置再赋值，实现类似单选的效果
+             * 因为重置了，所以下面代码简写无意义
+             */
+            if (tree.data[position].isShow) {
+                for (i in tree.data.indices) {
+                    tree.data[i].isShow = false
+                }
+            } else {
+                for (i in tree.data.indices) {
+                    tree.data[i].isShow = false
+                }
+                tree.data[position].isShow = true
+            }
+            treeAdapter.notifyDataSetChanged()
+
+            /**
+             * 方案二：可多选展开，并单条刷新，用户体验良好，但数据不准确，mPosition记录的值会混乱
+             * 因为多选的情况下mPosition只记录最后一个值，但是点击之前展开的item的子标签的话
+             * 就会出现根据最后一个position去匹配数据，甚至会出现下标越界的情况
+             */
+//            tree.data[position].isShow = !tree.data[position].isShow
+//            treeAdapter.notifyItemChanged(position)
         }
+
+        //分割线
         recycler_view.addItemDecoration(
             DividerItemDecoration(
                 mContext,
                 LinearLayoutManager.VERTICAL
             )
         )
+
+        //子view标签点击事件
+        treeAdapter.setOnItemTagClickListener(this)
+
         recycler_view.adapter = treeAdapter
     }
 
     override fun getTreeError(msg: String) {
         ToastUtilKt.showCenterToast(msg)
+    }
+
+    /**
+     * 标签点击事件
+     */
+    override fun onItemTagClick(view: View?, position: Int, parent: FlowLayout?): Boolean {
+        ToastUtilKt.showCenterToast(mTreeList[mPosition].children[position].name)
+        return true
     }
 
 }

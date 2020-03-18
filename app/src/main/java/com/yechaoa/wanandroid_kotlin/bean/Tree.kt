@@ -7,6 +7,7 @@ package com.yechaoa.wanandroid_kotlin.bean
 
 data class Tree(
     val children: List<Children>,
+    var isShow: Boolean,
     val courseId: Int,
     val id: Int,
     val name: String,
