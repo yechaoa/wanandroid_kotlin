@@ -2,6 +2,7 @@ package com.yechaoa.wanandroid_kotlin.module.login
 
 import android.content.Intent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import com.yechaoa.wanandroid_kotlin.R
 import com.yechaoa.wanandroid_kotlin.base.BaseActivity
 import com.yechaoa.wanandroid_kotlin.base.BaseBean
@@ -35,6 +36,14 @@ class LoginActivity : BaseActivity(), ILoginView {
 
         btn_login.setOnClickListener {
             attemptLogin()
+        }
+
+        et_password.setOnEditorActionListener { _, i, _ ->
+            if (i == EditorInfo.IME_ACTION_DONE) {
+                attemptLogin()
+                true
+            } else
+                false
         }
     }
 
