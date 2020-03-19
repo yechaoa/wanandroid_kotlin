@@ -62,11 +62,8 @@ class TreeFragment : BaseFragment(), ITreeView, TreeAdapter.OnItemTagClickListen
         //点击事件
         treeAdapter.setOnItemClickListener { _, _, position ->
             mPosition = position
-            /**
-             * 方案一：单选效果，数据准确，但用户体验一般
-             * 先重置再赋值，实现类似单选的效果
-             * 因为重置了，所以下面代码简写无意义
-             */
+
+            //先重置再赋值，实现类似单选的效果
             if (tree.data[position].isShow) {
                 for (i in tree.data.indices) {
                     tree.data[i].isShow = false
@@ -78,14 +75,6 @@ class TreeFragment : BaseFragment(), ITreeView, TreeAdapter.OnItemTagClickListen
                 tree.data[position].isShow = true
             }
             treeAdapter.notifyDataSetChanged()
-
-            /**
-             * 方案二：可多选展开，并单条刷新，用户体验良好，但数据不准确，mPosition记录的值会混乱
-             * 因为多选的情况下mPosition只记录最后一个值，但是点击之前展开的item的子标签的话
-             * 就会出现根据最后一个position去匹配数据，甚至会出现下标越界的情况
-             */
-//            tree.data[position].isShow = !tree.data[position].isShow
-//            treeAdapter.notifyItemChanged(position)
         }
 
         //分割线
