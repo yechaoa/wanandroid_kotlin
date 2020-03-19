@@ -1,6 +1,7 @@
 package com.yechaoa.wanandroid_kotlin.module.tree
 
 
+import android.content.Intent
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -10,6 +11,7 @@ import com.yechaoa.wanandroid_kotlin.adapter.TreeAdapter
 import com.yechaoa.wanandroid_kotlin.base.BaseBean
 import com.yechaoa.wanandroid_kotlin.base.BaseFragment
 import com.yechaoa.wanandroid_kotlin.bean.Tree
+import com.yechaoa.wanandroid_kotlin.module.tree.child.TreeChildActivity
 import com.yechaoa.yutilskt.ToastUtilKt
 import com.zhy.view.flowlayout.FlowLayout
 import kotlinx.android.synthetic.main.fragment_tree.*
@@ -99,8 +101,13 @@ class TreeFragment : BaseFragment(), ITreeView, TreeAdapter.OnItemTagClickListen
      * 标签点击事件
      */
     override fun onItemTagClick(view: View?, position: Int, parent: FlowLayout?): Boolean {
-        ToastUtilKt.showCenterToast(mTreeList[mPosition].children[position].name)
+        val intent = Intent(mContext, TreeChildActivity::class.java)
+        intent.putExtra(TreeChildActivity.TITLE, mTreeList[mPosition].name)
+        intent.putExtra(TreeChildActivity.CID, mTreeList[mPosition].children)
+        intent.putExtra(TreeChildActivity.POSITION, position)
+        startActivity(intent)
         return true
     }
 
 }
+

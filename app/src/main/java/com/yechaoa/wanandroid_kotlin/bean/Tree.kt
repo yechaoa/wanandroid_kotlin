@@ -1,12 +1,14 @@
 package com.yechaoa.wanandroid_kotlin.bean
 
+import java.io.Serializable
+
 /**
  * Created by yechao on 2020/1/19/019.
  * Describe :
  */
 
 data class Tree(
-    val children: List<Children>,
+    val children: ArrayList<Children>,
     var isShow: Boolean,
     val courseId: Int,
     val id: Int,
@@ -15,10 +17,11 @@ data class Tree(
     val parentChapterId: Int,
     val userControlSetTop: Boolean,
     val visible: Int
-)
+) : Serializable
+
 
 data class Children(
-    val children: List<Any>,
+    val children: ArrayList<Any>,
     val courseId: Int,
     val id: Int,
     val name: String,
@@ -26,4 +29,4 @@ data class Children(
     val parentChapterId: Int,
     val userControlSetTop: Boolean,
     val visible: Int
-)
+) : Serializable

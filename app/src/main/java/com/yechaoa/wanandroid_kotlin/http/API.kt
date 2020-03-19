@@ -54,6 +54,12 @@ class API {
         @GET("tree/json")
         fun getTree(): Observable<BaseBean<MutableList<Tree>>>
 
+        //知识体系下的文章
+        @GET("article/list/{page}/json?")
+        fun getTreeChild(
+            @Path("page") page: Int,
+            @Query("cid") cid: Int
+        ): Observable<BaseBean<Article>>
 
         //-----------------------【 导航 】----------------------
 
