@@ -16,23 +16,15 @@
 
     <string name="large_text">
         "用到的库：\n\n"
-
         "YUtils\n\n"
-
         "retrofit\n\n"
-
         "rxjava2\n\n"
-
         "BRVAH\n\n"
-
         "banner\n\n"
-
         "glide\n\n"
-
         "agentweb\n\n"
-
         "VerticalTabLayout\n\n"
-
+        "flowlayout\n\n"
     </string>
     <string name="hint_username">请输入账号</string>
     <string name="hint_password">请输入密码</string>
