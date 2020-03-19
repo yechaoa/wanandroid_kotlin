@@ -175,14 +175,14 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener, OnLoadMoreList
         }, 1000)
     }
 
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val intent = Intent(mContext, DetailActivity::class.java)
         intent.putExtra(DetailActivity.WEB_URL, mDataList[position].link)
         intent.putExtra(DetailActivity.WEB_TITLE, mDataList[position].title)
         startActivity(intent)
     }
 
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         mPosition = position
         if (mDataList[position].collect) {
             mHomePresenter.unCollect(mDataList[position].id)

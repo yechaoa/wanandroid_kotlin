@@ -115,7 +115,7 @@ class CollectActivity : BaseActivity(), ICollectView, OnItemClickListener, OnLoa
 //        mCollectAdapter.notifyDataSetChanged()
     }
 
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra(DetailActivity.WEB_URL, mDataList[position].link)
         intent.putExtra(DetailActivity.WEB_TITLE, mDataList[position].title)
@@ -145,7 +145,7 @@ class CollectActivity : BaseActivity(), ICollectView, OnItemClickListener, OnLoa
         }, 1500)
     }
 
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         mPosition = position
 
         val oid: Int = if (-1 < mDataList[position].originId)

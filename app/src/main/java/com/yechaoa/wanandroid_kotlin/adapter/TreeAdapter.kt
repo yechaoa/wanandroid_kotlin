@@ -22,13 +22,13 @@ class TreeAdapter(data: MutableList<Tree>) :
     BaseQuickAdapter<Tree, BaseViewHolder>(R.layout.item_tree, data),
     TagFlowLayout.OnTagClickListener {
 
-    override fun convert(helper: BaseViewHolder, item: Tree?) {
-        helper.setText(R.id.tv_tree_title, item?.name)
+    override fun convert(helper: BaseViewHolder, item: Tree) {
+        helper.setText(R.id.tv_tree_title, item.name)
 
         val flowLayout = helper.getView<TagFlowLayout>(R.id.flow_layout)
 
         //根据状态处理显示结果
-        if (item!!.isShow){
+        if (item.isShow){
             flowLayout.visibility =View.VISIBLE
             helper.setImageResource(R.id.iv_toggle,R.drawable.ic_up)
         }else{

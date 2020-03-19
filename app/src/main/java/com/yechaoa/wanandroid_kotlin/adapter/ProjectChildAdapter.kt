@@ -14,12 +14,12 @@ import com.yechaoa.wanandroid_kotlin.bean.DataX
 class ProjectChildAdapter(data: MutableList<DataX>) :
     BaseQuickAdapter<DataX, BaseViewHolder>(R.layout.item_project_child, data), LoadMoreModule {
 
-    override fun convert(helper: BaseViewHolder, item: DataX?) {
-        Glide.with(context).load(item?.envelopePic).into(helper.getView(R.id.iv_project_img))
-        helper.setText(R.id.tv_project_title, item?.title)
-        helper.setText(R.id.tv_project_desc, item?.desc)
-        helper.setText(R.id.tv_project_date, item?.niceDate)
-        helper.setText(R.id.tv_project_author, item?.author)
+    override fun convert(helper: BaseViewHolder, item: DataX) {
+        Glide.with(context).load(item.envelopePic).into(helper.getView(R.id.iv_project_img))
+        helper.setText(R.id.tv_project_title, item.title)
+        helper.setText(R.id.tv_project_desc, item.desc)
+        helper.setText(R.id.tv_project_date, item.niceDate)
+        helper.setText(R.id.tv_project_author, item.author)
     }
 
 }

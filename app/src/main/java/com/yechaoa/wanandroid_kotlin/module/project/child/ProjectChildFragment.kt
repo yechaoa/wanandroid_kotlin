@@ -107,7 +107,7 @@ class ProjectChildFragment : BaseFragment(), IProjectChildView, OnLoadMoreListen
         }
     }
 
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val intent = Intent(mContext, DetailActivity::class.java)
         intent.putExtra(DetailActivity.WEB_URL, mDataList[position].link)
         intent.putExtra(DetailActivity.WEB_TITLE, mDataList[position].title)

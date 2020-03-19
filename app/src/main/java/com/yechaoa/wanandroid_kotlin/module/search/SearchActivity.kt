@@ -201,7 +201,7 @@ class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadM
         ToastUtilKt.showCenterToast(msg)
     }
 
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra(DetailActivity.WEB_URL, mDataList[position].link)
         intent.putExtra(DetailActivity.WEB_TITLE, mDataList[position].title)
@@ -247,7 +247,7 @@ class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadM
         mArticleAdapter.notifyDataSetChanged()
     }
 
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         mPosition = position
         if (mDataList[position].collect) {
             mSearchPresenter.unCollect(mDataList[position].id)
