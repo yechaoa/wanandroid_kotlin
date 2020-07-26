@@ -46,7 +46,9 @@ class MainActivity : BaseActivity() {
 
         fab.setOnClickListener {
             Snackbar.make(it, "这是一个提示", Snackbar.LENGTH_SHORT)
-                .setAction("按钮") { ToastUtilKt.showCenterToast("点击了按钮") }.show()
+                .setAction("按钮") {
+                    ToastUtilKt.showCenterToast("点击了按钮")
+                }.show()
         }
 
         initActionBarDrawer()

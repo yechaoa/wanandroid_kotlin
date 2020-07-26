@@ -15,6 +15,10 @@ import com.yechaoa.wanandroid_kotlin.bean.ArticleDetail
 class ArticleAdapter(data: MutableList<ArticleDetail>) :
     BaseQuickAdapter<ArticleDetail, BaseViewHolder>(R.layout.item_article, data), LoadMoreModule {
 
+    init {
+        addChildClickViewIds(R.id.article_favorite)
+    }
+
     override fun convert(helper: BaseViewHolder, item: ArticleDetail) {
         //fromHtml，因为搜索结果中的title中含有html标签
         helper.setText(R.id.article_title, Html.fromHtml(item.title))
@@ -29,9 +33,6 @@ class ArticleAdapter(data: MutableList<ArticleDetail>) :
             Glide.with(context).load(R.drawable.ic_like_normal)
                 .into(helper.getView(R.id.article_favorite))
         }
-
-        addChildClickViewIds(R.id.article_favorite)
     }
-
 
 }

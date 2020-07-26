@@ -37,7 +37,7 @@ class AboutActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setHomeButtonEnabled(true)
 
-        tv_app_info.text = "玩安卓  V" + YUtilsKt.getVersionName()
+        tv_app_info.text = "玩安卓  V${YUtilsKt.getVersionName()}"
 
         //添加下划线
         tv_github.paint.flags = Paint.UNDERLINE_TEXT_FLAG
@@ -77,7 +77,7 @@ class AboutActivity : AppCompatActivity() {
         val assets = assets as AssetManager
         //根据路径得到字体
         val typeface = Typeface.createFromAsset(assets, "fonts/mononoki-Regular.ttf")
-        //设置给textview
+        //设置给TextView
         tv_library.typeface = typeface
         tv_github.typeface = typeface
     }

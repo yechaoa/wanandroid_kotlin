@@ -112,7 +112,6 @@ class CollectActivity : BaseActivity(), ICollectView, OnItemClickListener, OnLoa
     override fun unCollect(msg: String) {
         ToastUtilKt.showCenterToast(msg)
         mCollectAdapter.remove(mPosition)
-//        mCollectAdapter.notifyDataSetChanged()
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
