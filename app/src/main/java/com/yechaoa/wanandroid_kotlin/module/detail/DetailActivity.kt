@@ -29,7 +29,7 @@ class DetailActivity : BaseActivity() {
     }
 
     override fun initView() {
-        setMyTitle(intent.getStringExtra(WEB_TITLE))
+        setMyTitle(intent.getStringExtra(WEB_TITLE)!!)
         setBackEnabled()
 
         initAgentWeb()

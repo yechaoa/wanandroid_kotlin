@@ -22,8 +22,8 @@ class TreeChildActivity : BaseActivity() {
 
     override fun initView() {
         //初始化toolbar
-        val title = intent.getStringExtra(TITLE as String?)
-        setMyTitle(title)
+        val title = intent.getStringExtra(TITLE)
+        setMyTitle(title!!)
         setBackEnabled()
 
         //title集合
