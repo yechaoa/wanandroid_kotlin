@@ -17,11 +17,8 @@ class GlideImageLoader : ImageLoader() {
      * 传输的到的是什么格式，那么这种就使用Object接收和返回，你只需要强转成你传输的类型就行，
      * 切记不要胡乱强转！
      */
-    override fun displayImage(
-        context: Context?,
-        path: Any?,
-        imageView: ImageView?
-    ) { //Glide 加载图片简单用法
+    override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
+        //Glide 加载图片简单用法
         Glide.with(context!!).load(path).into(imageView!!)
     }
 }

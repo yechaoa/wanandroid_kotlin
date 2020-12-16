@@ -13,21 +13,14 @@ import com.yechaoa.yutilskt.YUtilsKt
  * Created by yechao on 2020/1/13/013.
  * Describe :
  */
-abstract class BaseFragment : Fragment() ,BaseView{
+abstract class BaseFragment : Fragment(), BaseView {
 
     protected lateinit var mContext: Context
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(getLayoutId(), container, false)
-
         mContext = ActivityUtilKt.currentActivity!!
-
         createPresenter()
-
         return view
     }
 
@@ -36,7 +29,6 @@ abstract class BaseFragment : Fragment() ,BaseView{
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initView()
         initData()
     }
@@ -60,7 +52,7 @@ abstract class BaseFragment : Fragment() ,BaseView{
     protected abstract fun initData()
 
     override fun showLoading() {
-        YUtilsKt.showLoading(ActivityUtilKt.currentActivity!!,"加载中")
+        YUtilsKt.showLoading(ActivityUtilKt.currentActivity!!, "加载中")
     }
 
     override fun hideLoading() {

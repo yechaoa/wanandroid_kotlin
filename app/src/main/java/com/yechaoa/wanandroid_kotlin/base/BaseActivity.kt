@@ -56,8 +56,10 @@ abstract class BaseActivity: AppCompatActivity(), BaseView {
      * 统一处理返回键
      */
     protected fun setBackEnabled() {
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.apply {
+            setHomeButtonEnabled(true)
+            setDisplayHomeAsUpEnabled(true)
+        }
     }
 
     /**

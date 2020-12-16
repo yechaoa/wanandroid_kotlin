@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.chad.library.adapter.base.listener.OnItemClickListener
@@ -64,7 +63,6 @@ class TreeChildFragment : BaseFragment(), ITreeChildView, OnLoadMoreListener, On
     }
 
     override fun initView() {
-        recycler_view.layoutManager = LinearLayoutManager(mContext)
     }
 
     override fun initData() {
@@ -75,11 +73,13 @@ class TreeChildFragment : BaseFragment(), ITreeChildView, OnLoadMoreListener, On
     override fun getTreeChild(treeChild: BaseBean<Article>) {
         CURRENT_SIZE = treeChild.data.datas.size
         mDataList = treeChild.data.datas
-        mArticleAdapter = ArticleAdapter(treeChild.data.datas)
-        mArticleAdapter.setOnItemClickListener(this)
-        mArticleAdapter.setOnItemChildClickListener(this)
-        mArticleAdapter.loadMoreModule?.setOnLoadMoreListener(this)
+        mArticleAdapter = ArticleAdapter().apply {
+            setOnItemClickListener(this@TreeChildFragment)
+            setOnItemChildClickListener(this@TreeChildFragment)
+            loadMoreModule.setOnLoadMoreListener(this@TreeChildFragment)
+        }
         recycler_view.adapter = mArticleAdapter
+        mArticleAdapter.setList(treeChild.data.datas)
     }
 
     override fun getTreeChildError(msg: String) {
@@ -90,7 +90,7 @@ class TreeChildFragment : BaseFragment(), ITreeChildView, OnLoadMoreListener, On
         CURRENT_SIZE = treeChild.data.datas.size
         mDataList.addAll(treeChild.data.datas)
         mArticleAdapter.addData(treeChild.data.datas)
-        mArticleAdapter.loadMoreModule?.loadMoreComplete()
+        mArticleAdapter.loadMoreModule.loadMoreComplete()
     }
 
     override fun getTreeChildMoreError(msg: String) {
@@ -102,13 +102,14 @@ class TreeChildFragment : BaseFragment(), ITreeChildView, OnLoadMoreListener, On
     }
 
     private fun showLoginDialog(msg: String) {
-        val builder = AlertDialog.Builder(mContext)
-        builder.setTitle("提示")
-        builder.setMessage(msg)
-        builder.setPositiveButton("确定") { _, _ ->
-            startActivity(Intent(mContext, LoginActivity::class.java))
+        val builder = AlertDialog.Builder(mContext).apply {
+            setTitle("提示")
+            setMessage(msg)
+            setPositiveButton("确定") { _, _ ->
+                startActivity(Intent(mContext, LoginActivity::class.java))
+            }
+            setNegativeButton("取消", null)
         }
-        builder.setNegativeButton("取消", null)
         builder.create().show()
     }
 
@@ -126,7 +127,7 @@ class TreeChildFragment : BaseFragment(), ITreeChildView, OnLoadMoreListener, On
 
     override fun onLoadMore() {
         if (CURRENT_SIZE < TOTAL_COUNTER) {
-            mArticleAdapter.loadMoreModule?.loadMoreEnd(true)
+            mArticleAdapter.loadMoreModule.loadMoreEnd(true)
         } else {
             CURRENT_PAGE++
             mTreeChildPresenter.getTreeMoreChild(CURRENT_PAGE, mCid)
@@ -134,9 +135,10 @@ class TreeChildFragment : BaseFragment(), ITreeChildView, OnLoadMoreListener, On
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val intent = Intent(mContext, DetailActivity::class.java)
-        intent.putExtra(DetailActivity.WEB_URL, mDataList[position].link)
-        intent.putExtra(DetailActivity.WEB_TITLE, mDataList[position].title)
+        val intent = Intent(mContext, DetailActivity::class.java).apply {
+            putExtra(DetailActivity.WEB_URL, mDataList[position].link)
+            putExtra(DetailActivity.WEB_TITLE, mDataList[position].title)
+        }
         startActivity(intent)
     }
 

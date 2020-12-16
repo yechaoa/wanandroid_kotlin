@@ -1,5 +1,6 @@
 package com.yechaoa.wanandroid_kotlin.module.about
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.AssetManager
 import android.graphics.Color
@@ -24,6 +25,7 @@ class AboutActivity : AppCompatActivity() {
         initView()
     }
 
+    @SuppressLint("SetTextI18n")
     fun initView() {
         //透明状态栏
         if (Build.VERSION.SDK_INT >= 21) {
@@ -60,12 +62,13 @@ class AboutActivity : AppCompatActivity() {
      * 调用系统的分享功能
      */
     private fun shareProject() {
-        val intent = Intent()
-        intent.action = Intent.ACTION_SEND
-        intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_SUBJECT, "玩安卓")
-        intent.putExtra(Intent.EXTRA_TEXT, "https://github.com/yechaoa/wanandroid_kotlin")
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        val intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            type = "text/plain"
+            putExtra(Intent.EXTRA_SUBJECT, "玩安卓")
+            putExtra(Intent.EXTRA_TEXT, "https://github.com/yechaoa/wanandroid_kotlin")
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        }
         startActivity(Intent.createChooser(intent, "玩安卓"))
     }
 

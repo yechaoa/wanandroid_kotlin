@@ -45,27 +45,27 @@ class DetailActivity : BaseActivity() {
             .go(getLoadUrl())
 
         val webView = mAgentWeb.webCreator.webView
-        val settings = webView.settings
         //获取手势焦点
         webView.requestFocusFromTouch()
-        //支持JS
-        settings.javaScriptEnabled = true
-        //是否支持缩放
-        settings.setSupportZoom(true)
-        settings.builtInZoomControls = true
-        //是否显示缩放按钮
-        settings.displayZoomControls = false
-        //自适应屏幕
-        settings.useWideViewPort = true
-        settings.loadWithOverviewMode = true
-        //设置布局方式,支持内容重新布局
-        settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
-
+        webView.settings.apply {
+            //支持JS
+            javaScriptEnabled = true
+            //是否支持缩放
+            setSupportZoom(true)
+            builtInZoomControls = true
+            //是否显示缩放按钮
+            displayZoomControls = false
+            //自适应屏幕
+            useWideViewPort = true
+            loadWithOverviewMode = true
+            //设置布局方式,支持内容重新布局
+            layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
+        }
         addBGChild(mAgentWeb.webCreator.webParentLayout as FrameLayout) // 得到 AgentWeb 最底层的控件
     }
 
     private fun addBGChild(frameLayout: FrameLayout) {
-        val title="技术由 AgentWeb 提供"
+        val title = "技术由 AgentWeb 提供"
         val mTextView = TextView(frameLayout.context)
         mTextView.text = title
         mTextView.textSize = 16f

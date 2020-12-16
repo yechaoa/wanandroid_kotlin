@@ -3,7 +3,6 @@ package com.yechaoa.wanandroid_kotlin.module.collect
 import android.content.Intent
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
@@ -64,17 +63,18 @@ class CollectActivity : BaseActivity(), ICollectView, OnItemClickListener, OnLoa
     override fun getCollectList(collect: BaseBean<Collect>) {
         CURRENT_SIZE = collect.data.datas.size
         mDataList = collect.data.datas
-        recycler_view.layoutManager = LinearLayoutManager(this)
-        mCollectAdapter = CollectAdapter(collect.data.datas)
-        //开启加载动画
-        mCollectAdapter.animationEnable = true
-        //item点击
-        mCollectAdapter.setOnItemClickListener(this)
-        //item子view点击
-        mCollectAdapter.setOnItemChildClickListener(this)
-        //加载更多
-        mCollectAdapter.loadMoreModule?.setOnLoadMoreListener(this)
+        mCollectAdapter = CollectAdapter().apply {
+            //开启加载动画
+            animationEnable = true
+            //item点击
+            setOnItemClickListener(this@CollectActivity)
+            //item子view点击
+            setOnItemChildClickListener(this@CollectActivity)
+            //加载更多
+            loadMoreModule.setOnLoadMoreListener(this@CollectActivity)
+        }
         recycler_view.adapter = mCollectAdapter
+        mCollectAdapter.setList(collect.data.datas)
     }
 
     override fun getCollectError(msg: String) {
@@ -86,14 +86,15 @@ class CollectActivity : BaseActivity(), ICollectView, OnItemClickListener, OnLoa
     }
 
     private fun showLoginDialog(msg: String) {
-        val builder = AlertDialog.Builder(this@CollectActivity)
-        builder.setTitle("提示")
-        builder.setMessage(msg)
-        builder.setPositiveButton("确定") { _, _ ->
-            startActivity(Intent(this, LoginActivity::class.java))
-        }
-        builder.setNegativeButton("取消") { _, _ ->
-            finish()
+        val builder = AlertDialog.Builder(this@CollectActivity).apply {
+            setTitle("提示")
+            setMessage(msg)
+            setPositiveButton("确定") { _, _ ->
+                startActivity(Intent(this@CollectActivity, LoginActivity::class.java))
+            }
+            setNegativeButton("取消") { _, _ ->
+                finish()
+            }
         }
         builder.create().show()
     }
@@ -102,7 +103,7 @@ class CollectActivity : BaseActivity(), ICollectView, OnItemClickListener, OnLoa
         CURRENT_SIZE = collect.data.datas.size
         mDataList.addAll(collect.data.datas)
         mCollectAdapter.addData(collect.data.datas)
-        mCollectAdapter.loadMoreModule?.loadMoreComplete()
+        mCollectAdapter.loadMoreModule.loadMoreComplete()
     }
 
     override fun getCollectMoreError(msg: String) {
@@ -111,7 +112,7 @@ class CollectActivity : BaseActivity(), ICollectView, OnItemClickListener, OnLoa
 
     override fun unCollect(msg: String) {
         ToastUtilKt.showCenterToast(msg)
-        mCollectAdapter.remove(mPosition)
+        mCollectAdapter.removeAt(mPosition)
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
@@ -126,7 +127,7 @@ class CollectActivity : BaseActivity(), ICollectView, OnItemClickListener, OnLoa
      */
     override fun onLoadMore() {
         if (CURRENT_SIZE < TOTAL_COUNTER) {
-            mCollectAdapter.loadMoreModule?.loadMoreEnd(true)
+            mCollectAdapter.loadMoreModule.loadMoreEnd(true)
         } else {
             CURRENT_PAGE++
             mCollectPresenter.getCollectMoreList(CURRENT_PAGE)

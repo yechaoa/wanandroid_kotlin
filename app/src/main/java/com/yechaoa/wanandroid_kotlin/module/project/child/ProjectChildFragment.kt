@@ -60,7 +60,6 @@ class ProjectChildFragment : BaseFragment(), IProjectChildView, OnLoadMoreListen
     }
 
     override fun initView() {
-        recycler_view.layoutManager = LinearLayoutManager(mContext)
         recycler_view.addItemDecoration(
             DividerItemDecoration(
                 mContext,
@@ -77,10 +76,12 @@ class ProjectChildFragment : BaseFragment(), IProjectChildView, OnLoadMoreListen
     override fun getProjectChild(projectChild: BaseBean<ProjectChild>) {
         CURRENT_SIZE = projectChild.data.datas.size
         mDataList = projectChild.data.datas
-        mProjectChildAdapter = ProjectChildAdapter(projectChild.data.datas)
-        mProjectChildAdapter.setOnItemClickListener(this)
-        mProjectChildAdapter.loadMoreModule?.setOnLoadMoreListener(this)
+        mProjectChildAdapter = ProjectChildAdapter().apply {
+            setOnItemClickListener(this@ProjectChildFragment)
+            loadMoreModule.setOnLoadMoreListener(this@ProjectChildFragment)
+        }
         recycler_view.adapter = mProjectChildAdapter
+        mProjectChildAdapter.setList(mDataList)
     }
 
     override fun getProjectChildError(msg: String) {
@@ -91,7 +92,7 @@ class ProjectChildFragment : BaseFragment(), IProjectChildView, OnLoadMoreListen
         CURRENT_SIZE = projectChild.data.datas.size
         mDataList.addAll(projectChild.data.datas)
         mProjectChildAdapter.addData(projectChild.data.datas)
-        mProjectChildAdapter.loadMoreModule?.loadMoreComplete()
+        mProjectChildAdapter.loadMoreModule.loadMoreComplete()
     }
 
     override fun getProjectChildMoreError(msg: String) {
@@ -100,7 +101,7 @@ class ProjectChildFragment : BaseFragment(), IProjectChildView, OnLoadMoreListen
 
     override fun onLoadMore() {
         if (CURRENT_SIZE < TOTAL_COUNTER) {
-            mProjectChildAdapter.loadMoreModule?.loadMoreEnd(true)
+            mProjectChildAdapter.loadMoreModule.loadMoreEnd(true)
         } else {
             CURRENT_PAGE++
             mProjectChildPresenter.getProjectMoreChild(CURRENT_PAGE, mCid)
@@ -108,9 +109,10 @@ class ProjectChildFragment : BaseFragment(), IProjectChildView, OnLoadMoreListen
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val intent = Intent(mContext, DetailActivity::class.java)
-        intent.putExtra(DetailActivity.WEB_URL, mDataList[position].link)
-        intent.putExtra(DetailActivity.WEB_TITLE, mDataList[position].title)
+        val intent = Intent(mContext, DetailActivity::class.java).apply {
+            putExtra(DetailActivity.WEB_URL, mDataList[position].link)
+            putExtra(DetailActivity.WEB_TITLE, mDataList[position].title)
+        }
         startActivity(intent)
     }
 

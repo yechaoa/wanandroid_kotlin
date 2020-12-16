@@ -18,22 +18,20 @@ import java.util.*
  * Created by yechao on 2020/1/19/019.
  * Describe :
  */
-class TreeAdapter(data: MutableList<Tree>) :
-    BaseQuickAdapter<Tree, BaseViewHolder>(R.layout.item_tree, data),
-    TagFlowLayout.OnTagClickListener {
+class TreeAdapter : BaseQuickAdapter<Tree, BaseViewHolder>(R.layout.item_tree), TagFlowLayout.OnTagClickListener {
 
-    override fun convert(helper: BaseViewHolder, item: Tree) {
-        helper.setText(R.id.tv_tree_title, item.name)
+    override fun convert(holder: BaseViewHolder, item: Tree) {
+        holder.setText(R.id.tv_tree_title, item.name)
 
-        val flowLayout = helper.getView<TagFlowLayout>(R.id.flow_layout)
+        val flowLayout = holder.getView<TagFlowLayout>(R.id.flow_layout)
 
         //根据状态处理显示结果
-        if (item.isShow){
-            flowLayout.visibility =View.VISIBLE
-            helper.setImageResource(R.id.iv_toggle,R.drawable.ic_up)
-        }else{
-            flowLayout.visibility =View.GONE
-            helper.setImageResource(R.id.iv_toggle,R.drawable.ic_down)
+        if (item.isShow) {
+            flowLayout.visibility = View.VISIBLE
+            holder.setImageResource(R.id.iv_toggle, R.drawable.ic_up)
+        } else {
+            flowLayout.visibility = View.GONE
+            holder.setImageResource(R.id.iv_toggle, R.drawable.ic_down)
         }
 
         flowLayout.adapter = object : TagAdapter<Children>(item.children) {

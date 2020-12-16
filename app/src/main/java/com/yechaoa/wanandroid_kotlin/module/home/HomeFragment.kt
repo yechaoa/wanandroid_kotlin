@@ -4,7 +4,6 @@ import android.content.Intent
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.chad.library.adapter.base.listener.OnItemClickListener
@@ -31,8 +30,8 @@ import kotlin.math.roundToInt
 /**
  * A simple [Fragment] subclass.
  */
-class HomeFragment : BaseFragment(), IHomeView, OnBannerListener, OnLoadMoreListener,
-    OnItemClickListener, OnItemChildClickListener {
+class HomeFragment : BaseFragment(), IHomeView, OnBannerListener, OnLoadMoreListener, OnItemClickListener,
+    OnItemChildClickListener {
 
     companion object {
         private const val TOTAL_COUNTER = 20//每次加载数量
@@ -55,7 +54,7 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener, OnLoadMoreList
     }
 
     override fun initView() {
-        recycler_view.layoutManager = LinearLayoutManager(mContext)
+
     }
 
     override fun initData() {
@@ -94,19 +93,18 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener, OnLoadMoreList
     override fun getArticleList(article: BaseBean<Article>) {
         CURRENT_SIZE = article.data.datas.size
         mDataList = article.data.datas
-        mArticleAdapter = ArticleAdapter(mDataList)
-        mArticleAdapter.animationEnable = true
-
-        //item点击事件
-        mArticleAdapter.setOnItemClickListener(this)
-
-        //item子view点击事件
-        mArticleAdapter.setOnItemChildClickListener(this)
-
-        //加载更多
-        mArticleAdapter.loadMoreModule?.setOnLoadMoreListener(this)
+        mArticleAdapter = ArticleAdapter().apply {
+            animationEnable = true
+            //item点击事件
+            setOnItemClickListener(this@HomeFragment)
+            //item子view点击事件
+            setOnItemChildClickListener(this@HomeFragment)
+            //加载更多
+            loadMoreModule.setOnLoadMoreListener(this@HomeFragment)
+        }
 
         recycler_view.adapter = mArticleAdapter
+        mArticleAdapter.setList(mDataList)
     }
 
     override fun getArticleError(msg: String) {
@@ -117,7 +115,7 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener, OnLoadMoreList
         mDataList.addAll(article.data.datas)
         CURRENT_SIZE = article.data.datas.size
         mArticleAdapter.addData(article.data.datas)
-        mArticleAdapter.loadMoreModule?.loadMoreComplete()
+        mArticleAdapter.loadMoreModule.loadMoreComplete()
     }
 
     override fun getArticleMoreError(msg: String) {
@@ -129,25 +127,26 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener, OnLoadMoreList
     }
 
     private fun showLoginDialog(msg: String) {
-        val builder = AlertDialog.Builder(mContext)
-        builder.setTitle("提示")
-        builder.setMessage(msg)
-        builder.setPositiveButton("确定") { _, _ ->
-            startActivity(Intent(mContext, LoginActivity::class.java))
+        val builder = AlertDialog.Builder(mContext).apply {
+            setTitle("提示")
+            setMessage(msg)
+            setPositiveButton("确定") { _, _ ->
+                startActivity(Intent(mContext, LoginActivity::class.java))
+            }
+            setNegativeButton("取消", null)
         }
-        builder.setNegativeButton("取消", null)
         builder.create().show()
     }
 
     override fun collect(msg: String) {
         ToastUtilKt.showCenterToast(msg)
-        mDataList[mPosition].collect=true
+        mDataList[mPosition].collect = true
         mArticleAdapter.notifyDataSetChanged()
     }
 
     override fun unCollect(msg: String) {
         ToastUtilKt.showCenterToast(msg)
-        mDataList[mPosition].collect=false
+        mDataList[mPosition].collect = false
         mArticleAdapter.notifyDataSetChanged()
     }
 
@@ -158,16 +157,17 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener, OnLoadMoreList
     }
 
     override fun OnBannerClick(position: Int) {
-        val intent = Intent(mContext, DetailActivity::class.java)
-        intent.putExtra(DetailActivity.WEB_URL, bannerList[position].url)
-        intent.putExtra(DetailActivity.WEB_TITLE, bannerList[position].title)
+        val intent = Intent(mContext, DetailActivity::class.java).apply {
+            putExtra(DetailActivity.WEB_URL, bannerList[position].url)
+            putExtra(DetailActivity.WEB_TITLE, bannerList[position].title)
+        }
         startActivity(intent)
     }
 
     override fun onLoadMore() {
         recycler_view.postDelayed({
             if (CURRENT_SIZE < TOTAL_COUNTER) {
-                mArticleAdapter.loadMoreModule?.loadMoreEnd(true)
+                mArticleAdapter.loadMoreModule.loadMoreEnd(true)
             } else {
                 CURRENT_PAGE++
                 mHomePresenter.getArticleMoreList(CURRENT_PAGE)
@@ -176,9 +176,10 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener, OnLoadMoreList
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val intent = Intent(mContext, DetailActivity::class.java)
-        intent.putExtra(DetailActivity.WEB_URL, mDataList[position].link)
-        intent.putExtra(DetailActivity.WEB_TITLE, mDataList[position].title)
+        val intent = Intent(mContext, DetailActivity::class.java).apply {
+            putExtra(DetailActivity.WEB_URL, mDataList[position].link)
+            putExtra(DetailActivity.WEB_TITLE, mDataList[position].title)
+        }
         startActivity(intent)
     }
 

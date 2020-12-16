@@ -54,7 +54,6 @@ class MainActivity : BaseActivity() {
         initActionBarDrawer()
 
         initFragments()
-
     }
 
     /**
@@ -76,12 +75,12 @@ class MainActivity : BaseActivity() {
      * 初始化Fragment
      */
     private fun initFragments() {
-        val viewPagerAdapter = CommonViewPagerAdapter(supportFragmentManager)
-        viewPagerAdapter.addFragment(HomeFragment())
-        viewPagerAdapter.addFragment(TreeFragment())
-        viewPagerAdapter.addFragment(NaviFragment())
-        viewPagerAdapter.addFragment(ProjectFragment())
-
+        val viewPagerAdapter = CommonViewPagerAdapter(supportFragmentManager).apply {
+            addFragment(HomeFragment())
+            addFragment(TreeFragment())
+            addFragment(NaviFragment())
+            addFragment(ProjectFragment())
+        }
         view_pager.offscreenPageLimit = 1
         view_pager.adapter = viewPagerAdapter
     }
@@ -103,8 +102,7 @@ class MainActivity : BaseActivity() {
         //获取第2个itemView
         val itemView = menuView.getChildAt(1) as BottomNavigationItemView
         //引入badgeView
-        val badgeView =
-            LayoutInflater.from(this).inflate(R.layout.layout_badge_view, menuView, false)
+        val badgeView = LayoutInflater.from(this).inflate(R.layout.layout_badge_view, menuView, false)
         //把badgeView添加到itemView中
         itemView.addView(badgeView)
         //获取子view并设置显示数目
@@ -132,16 +130,17 @@ class MainActivity : BaseActivity() {
                     startActivity(Intent(this, AboutActivity::class.java))
                 }
                 R.id.nav_logout -> {
-                    val builder = AlertDialog.Builder(this@MainActivity)
-                    builder.setTitle("提示")
-                    builder.setMessage("确定退出？")
-                    builder.setPositiveButton("确定") { _, _ ->
-                        SpUtilKt.setBoolean(MyConfig.IS_LOGIN, false)
-                        SpUtilKt.removeByKey(MyConfig.COOKIE)
-                        startActivity(Intent(this@MainActivity, LoginActivity::class.java))
-                        finish()
+                    val builder = AlertDialog.Builder(this@MainActivity).apply {
+                        setTitle("提示")
+                        setMessage("确定退出？")
+                        setPositiveButton("确定") { _, _ ->
+                            SpUtilKt.setBoolean(MyConfig.IS_LOGIN, false)
+                            SpUtilKt.removeByKey(MyConfig.COOKIE)
+                            startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+                            finish()
+                        }
+                        setNegativeButton("取消", null)
                     }
-                    builder.setNegativeButton("取消", null)
                     builder.create().show()
                 }
             }
@@ -159,29 +158,17 @@ class MainActivity : BaseActivity() {
             override fun onPageScrollStateChanged(state: Int) {
             }
 
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
             }
 
             override fun onPageSelected(position: Int) {
                 bottom_navigation.menu.getItem(position).isChecked = true
                 //设置checked为true，但是不能触发ItemSelected事件，所以滑动时也要设置一下标题
                 when (position) {
-                    0 -> {
-                        toolbar.title = resources.getString(R.string.app_name)
-                    }
-                    1 -> {
-                        toolbar.title = resources.getString(R.string.title_tree)
-                    }
-                    2 -> {
-                        toolbar.title = resources.getString(R.string.title_navi)
-                    }
-                    else -> {
-                        toolbar.title = resources.getString(R.string.title_project)
-                    }
+                    0 -> toolbar.title = resources.getString(R.string.app_name)
+                    1 -> toolbar.title = resources.getString(R.string.title_tree)
+                    2 -> toolbar.title = resources.getString(R.string.title_navi)
+                    else -> toolbar.title = resources.getString(R.string.title_project)
                 }
             }
         })
@@ -216,12 +203,13 @@ class MainActivity : BaseActivity() {
      * 调用系统的分享功能
      */
     private fun shareProject() {
-        val intent = Intent()
-        intent.action = Intent.ACTION_SEND
-        intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_SUBJECT, "玩安卓")
-        intent.putExtra(Intent.EXTRA_TEXT, "https://github.com/yechaoa/wanandroid_kotlin")
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        val intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            type = "text/plain"
+            putExtra(Intent.EXTRA_SUBJECT, "玩安卓")
+            putExtra(Intent.EXTRA_TEXT, "https://github.com/yechaoa/wanandroid_kotlin")
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        }
         startActivity(Intent.createChooser(intent, "玩安卓"))
     }
 
@@ -238,16 +226,11 @@ class MainActivity : BaseActivity() {
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_search -> {
-                startActivity(Intent(this, SearchActivity::class.java))
-            }
-            R.id.action_settings -> {
-                ToastUtilKt.showCenterToast("设置")
-            }
+            R.id.action_search -> startActivity(Intent(this, SearchActivity::class.java))
+            R.id.action_settings -> ToastUtilKt.showCenterToast("设置")
         }
         return super.onOptionsItemSelected(item)
     }
-
 
     private var mExitTime: Long = 0 // 保存用户按返回键的时间
 

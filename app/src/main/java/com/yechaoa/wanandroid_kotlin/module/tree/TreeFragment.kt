@@ -35,7 +35,6 @@ class TreeFragment : BaseFragment(), ITreeView, TreeAdapter.OnItemTagClickListen
 
     override fun initView() {
         initSwipeRefreshLayout()
-        recycler_view.layoutManager = LinearLayoutManager(mContext)
     }
 
     private fun initSwipeRefreshLayout() {
@@ -59,38 +58,33 @@ class TreeFragment : BaseFragment(), ITreeView, TreeAdapter.OnItemTagClickListen
     override fun getTree(tree: BaseBean<MutableList<Tree>>) {
         mTreeList = tree.data
 
-        val treeAdapter = TreeAdapter(tree.data)
+        val treeAdapter = TreeAdapter().apply {
+            setOnItemClickListener { _, _, position ->
+                mPosition = position
 
-        //点击事件
-        treeAdapter.setOnItemClickListener { _, _, position ->
-            mPosition = position
-
-            //先重置再赋值，实现类似单选的效果
-            if (tree.data[position].isShow) {
-                for (i in tree.data.indices) {
-                    tree.data[i].isShow = false
+                //先重置再赋值，实现类似单选的效果
+                if (tree.data[position].isShow) {
+                    for (i in tree.data.indices) {
+                        tree.data[i].isShow = false
+                    }
+                } else {
+                    for (i in tree.data.indices) {
+                        tree.data[i].isShow = false
+                    }
+                    tree.data[position].isShow = true
                 }
-            } else {
-                for (i in tree.data.indices) {
-                    tree.data[i].isShow = false
-                }
-                tree.data[position].isShow = true
+                notifyDataSetChanged()
             }
-            treeAdapter.notifyDataSetChanged()
+
+            //子view标签点击事件
+            setOnItemTagClickListener(this@TreeFragment)
         }
 
+
         //分割线
-        recycler_view.addItemDecoration(
-            DividerItemDecoration(
-                mContext,
-                LinearLayoutManager.VERTICAL
-            )
-        )
-
-        //子view标签点击事件
-        treeAdapter.setOnItemTagClickListener(this)
-
+        recycler_view.addItemDecoration(DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL))
         recycler_view.adapter = treeAdapter
+        treeAdapter.setList(tree.data)
     }
 
     override fun getTreeError(msg: String) {
@@ -101,10 +95,11 @@ class TreeFragment : BaseFragment(), ITreeView, TreeAdapter.OnItemTagClickListen
      * 标签点击事件
      */
     override fun onItemTagClick(view: View?, position: Int, parent: FlowLayout?): Boolean {
-        val intent = Intent(mContext, TreeChildActivity::class.java)
-        intent.putExtra(TreeChildActivity.TITLE, mTreeList[mPosition].name)
-        intent.putExtra(TreeChildActivity.CID, mTreeList[mPosition].children)
-        intent.putExtra(TreeChildActivity.POSITION, position)
+        val intent = Intent(mContext, TreeChildActivity::class.java).apply {
+            putExtra(TreeChildActivity.TITLE, mTreeList[mPosition].name)
+            putExtra(TreeChildActivity.CID, mTreeList[mPosition].children)
+            putExtra(TreeChildActivity.POSITION, position)
+        }
         startActivity(intent)
         return true
     }

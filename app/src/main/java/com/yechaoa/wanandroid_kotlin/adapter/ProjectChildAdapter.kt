@@ -11,15 +11,14 @@ import com.yechaoa.wanandroid_kotlin.bean.DataX
  * Created by yechao on 2020/1/19/019.
  * Describe :
  */
-class ProjectChildAdapter(data: MutableList<DataX>) :
-    BaseQuickAdapter<DataX, BaseViewHolder>(R.layout.item_project_child, data), LoadMoreModule {
+class ProjectChildAdapter : BaseQuickAdapter<DataX, BaseViewHolder>(R.layout.item_project_child), LoadMoreModule {
 
-    override fun convert(helper: BaseViewHolder, item: DataX) {
-        Glide.with(context).load(item.envelopePic).into(helper.getView(R.id.iv_project_img))
-        helper.setText(R.id.tv_project_title, item.title)
-        helper.setText(R.id.tv_project_desc, item.desc)
-        helper.setText(R.id.tv_project_date, item.niceDate)
-        helper.setText(R.id.tv_project_author, item.author)
+    override fun convert(holder: BaseViewHolder, item: DataX) {
+        Glide.with(context).load(item.envelopePic).into(holder.getView(R.id.iv_project_img))
+        holder.setText(R.id.tv_project_title, item.title)
+        holder.setText(R.id.tv_project_desc, item.desc)
+        holder.setText(R.id.tv_project_date, item.niceDate)
+        holder.setText(R.id.tv_project_author, item.author)
     }
 
 }

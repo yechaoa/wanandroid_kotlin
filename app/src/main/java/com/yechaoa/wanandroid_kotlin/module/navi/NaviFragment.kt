@@ -24,8 +24,7 @@ import q.rorbin.verticaltablayout.widget.TabView
 /**
  * A simple [Fragment] subclass.
  */
-class NaviFragment : BaseFragment(), INaviView, VerticalTabLayout.OnTabSelectedListener,
-    TagFlowLayout.OnTagClickListener {
+class NaviFragment : BaseFragment(), INaviView, VerticalTabLayout.OnTabSelectedListener, TagFlowLayout.OnTagClickListener {
 
     private lateinit var mNaviPresenter: NaviPresenter
     private lateinit var mNaviList: MutableList<Navi>
@@ -132,9 +131,10 @@ class NaviFragment : BaseFragment(), INaviView, VerticalTabLayout.OnTabSelectedL
      * 标签点击事件
      */
     override fun onTagClick(view: View?, position: Int, parent: FlowLayout?): Boolean {
-        val intent = Intent(mContext, DetailActivity::class.java)
-        intent.putExtra(DetailActivity.WEB_URL, mArticles[position].link)
-        intent.putExtra(DetailActivity.WEB_TITLE, mArticles[position].title)
+        val intent = Intent(mContext, DetailActivity::class.java).apply {
+            putExtra(DetailActivity.WEB_URL, mArticles[position].link)
+            putExtra(DetailActivity.WEB_TITLE, mArticles[position].title)
+        }
         startActivity(intent)
         return true
     }

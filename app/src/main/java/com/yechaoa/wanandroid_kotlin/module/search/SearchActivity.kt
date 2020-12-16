@@ -12,7 +12,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuItemCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.chad.library.adapter.base.listener.OnItemClickListener
@@ -64,8 +63,6 @@ class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadM
         setBackEnabled()
 
         mSearchPresenter.getHotkey()
-
-        recycler_view.layoutManager = LinearLayoutManager(this)
     }
 
     private lateinit var mEditText: EditText
@@ -82,19 +79,21 @@ class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadM
         val searchItem = menu?.findItem(R.id.action_search)
         val searchView: SearchView = MenuItemCompat.getActionView(searchItem) as SearchView
 
-        //搜索图标是否显示在搜索框内
-        searchView.setIconifiedByDefault(true)
-        //设置搜索框展开时是否显示提交按钮，可不显示
-        searchView.isSubmitButtonEnabled = true
-        //让键盘的回车键设置成搜索
-        searchView.imeOptions = EditorInfo.IME_ACTION_SEARCH
-        //搜索框是否展开，false表示展开
-        searchView.isIconified = false
-        //获取焦点
-        searchView.isFocusable = true
-        searchView.requestFocusFromTouch()
-        //设置提示词
-        searchView.queryHint = "请输入关键字"
+        searchView.apply {
+            //搜索图标是否显示在搜索框内
+            setIconifiedByDefault(true)
+            //设置搜索框展开时是否显示提交按钮，可不显示
+            isSubmitButtonEnabled = true
+            //让键盘的回车键设置成搜索
+            imeOptions = EditorInfo.IME_ACTION_SEARCH
+            //搜索框是否展开，false表示展开
+            isIconified = false
+            //获取焦点
+            isFocusable = true
+            requestFocusFromTouch()
+            //设置提示词
+            queryHint = "请输入关键字"
+        }
 
         //设置输入框文字颜色
         mEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text) as EditText
@@ -171,19 +170,17 @@ class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadM
 
         CURRENT_SIZE = article.data.datas.size
         mDataList = article.data.datas
-        mArticleAdapter = ArticleAdapter(mDataList)
-        mArticleAdapter.animationEnable = true
-
-        //item点击事件
-        mArticleAdapter.setOnItemClickListener(this)
-
-        //item子view点击事件
-        mArticleAdapter.setOnItemChildClickListener(this)
-
-        //加载更多
-        mArticleAdapter.loadMoreModule?.setOnLoadMoreListener(this)
-
+        mArticleAdapter = ArticleAdapter().apply {
+            animationEnable = true
+            //item点击事件
+            setOnItemClickListener(this@SearchActivity)
+            //item子view点击事件
+            setOnItemChildClickListener(this@SearchActivity)
+            //加载更多
+            loadMoreModule.setOnLoadMoreListener(this@SearchActivity)
+        }
         recycler_view.adapter = mArticleAdapter
+        mArticleAdapter.setList(mDataList)
     }
 
     override fun getArticleError(msg: String) {
@@ -194,7 +191,7 @@ class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadM
         CURRENT_SIZE = article.data.datas.size
         mDataList.addAll(article.data.datas)
         mArticleAdapter.addData(article.data.datas)
-        mArticleAdapter.loadMoreModule?.loadMoreComplete()
+        mArticleAdapter.loadMoreModule.loadMoreComplete()
     }
 
     override fun getArticleMoreError(msg: String) {
@@ -202,15 +199,16 @@ class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadM
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra(DetailActivity.WEB_URL, mDataList[position].link)
-        intent.putExtra(DetailActivity.WEB_TITLE, mDataList[position].title)
+        val intent = Intent(this, DetailActivity::class.java).apply {
+            putExtra(DetailActivity.WEB_URL, mDataList[position].link)
+            putExtra(DetailActivity.WEB_TITLE, mDataList[position].title)
+        }
         startActivity(intent)
     }
 
     override fun onLoadMore() {
         if (CURRENT_SIZE < TOTAL_COUNTER) {
-            mArticleAdapter.loadMoreModule?.loadMoreEnd(true)
+            mArticleAdapter.loadMoreModule.loadMoreEnd(true)
         } else {
             CURRENT_PAGE++
             mSearchPresenter.getArticleMoreList(CURRENT_PAGE, mKey)
@@ -225,13 +223,14 @@ class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadM
     }
 
     private fun showLoginDialog(msg: String) {
-        val builder = AlertDialog.Builder(this@SearchActivity)
-        builder.setTitle("提示")
-        builder.setMessage(msg)
-        builder.setPositiveButton("确定") { _, _ ->
-            startActivity(Intent(this@SearchActivity, LoginActivity::class.java))
+        val builder = AlertDialog.Builder(this@SearchActivity).apply {
+            setTitle("提示")
+            setMessage(msg)
+            setPositiveButton("确定") { _, _ ->
+                startActivity(Intent(this@SearchActivity, LoginActivity::class.java))
+            }
+            setNegativeButton("取消", null)
         }
-        builder.setNegativeButton("取消", null)
         builder.create().show()
     }
 
