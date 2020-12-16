@@ -1,5 +1,5 @@
 # wanandroid_kotlin
-玩安卓Kotlin版，一步一步完善中。
+玩安卓Kotlin版，一步一步完善中。（2020-12-16更新）
 
 ![](https://img.shields.io/badge/language-kotlin-orange.svg)
 ![](https://img.shields.io/hexpm/l/plug.svg)
@@ -49,8 +49,8 @@
 
 # :package:环境
 
-* Android Studio 3.6.1
-* Kotlin 1.3.61
+* Android Studio 3.6.1 -> 4.0.2
+* Kotlin 1.3.61 -> 1.4.10
 
 
 
