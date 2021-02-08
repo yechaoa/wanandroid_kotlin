@@ -1,5 +1,4 @@
-# wanandroid_kotlin
-玩安卓Kotlin版，一步一步完善中。（2020-12-16更新）
+# 玩安卓 Kotlin版本
 
 ![](https://img.shields.io/badge/language-kotlin-orange.svg)
 ![](https://img.shields.io/hexpm/l/plug.svg)
@@ -9,7 +8,7 @@
 * [玩安卓 Java版本](https://github.com/yechaoa/wanandroid_java)
 * [玩安卓 小程序版本](https://github.com/yechaoa/wanandroid_mini)
 * [玩安卓 Kotlin版本](https://github.com/yechaoa/wanandroid_kotlin)
-
+* [玩安卓 Jetpack版本](https://github.com/yechaoa/wanandroid_jetpack)
 
 # :fire:截图
 | <img src="/screenshot/1.png" width="285"/> | <img src="/screenshot/2.png" width="285"/> | <img src="/screenshot/3.png" width="285"/> | 
@@ -20,19 +19,6 @@
 | :--: | :--: | :--: | 
 | 项目 | 登录 | 搜索 | 
 
-# :pencil:Todo
-
-- [x] 注册
-- [x] 启动页
-- [x] 退出
-- [x] 搜索
-- [x] 收藏
-- [x] 分享
-- [x] 修改字体
-- [x] 关于我们
-- [x] 下拉刷新
-- [x] 上拉加载
-- [x] cookie持久化
 
 # :point_right:感谢
 
@@ -51,7 +37,6 @@
 
 * Android Studio 3.6.1 -> 4.0.2
 * Kotlin 1.3.61 -> 1.4.10
-
 
 
 <br>
