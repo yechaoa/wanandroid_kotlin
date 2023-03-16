@@ -35,8 +35,9 @@
 
 # :package:环境
 
-* Android Studio 3.6.1 -> 4.0.2
-* Kotlin 1.3.61 -> 1.4.10
+* Android Studio Dolphin | 2021.3.1
+* Android Gradle Plugin 7.3.0
+* Kotlin 1.7.10
 
 
 <br>
