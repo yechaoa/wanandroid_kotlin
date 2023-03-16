@@ -4,7 +4,7 @@ import com.yechaoa.wanandroid_kotlin.base.BaseBean
 import com.yechaoa.wanandroid_kotlin.bean.Article
 import com.yechaoa.wanandroid_kotlin.bean.Banner
 import com.yechaoa.wanandroid_kotlin.http.RetrofitService
-import com.yechaoa.yutilskt.LogUtilKt
+import com.yechaoa.yutilskt.LogUtil
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -26,20 +26,20 @@ class HomePresenter(homeView: IHomeView) {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<BaseBean<Article>> {
                 override fun onComplete() {
-                    LogUtilKt.i("onComplete")
+                    LogUtil.i("onComplete")
                 }
 
                 override fun onSubscribe(d: Disposable) {
-                    LogUtilKt.i("onSubscribe")
+                    LogUtil.i("onSubscribe")
                 }
 
                 override fun onNext(t: BaseBean<Article>) {
-                    LogUtilKt.i("onNext")
+                    LogUtil.i("onNext")
                     mIHomeView.getArticleList(t)
                 }
 
                 override fun onError(e: Throwable) {
-                    LogUtilKt.i("onError")
+                    LogUtil.i("onError")
                     mIHomeView.getArticleError("获取失败(°∀°)ﾉ" + e.message)
                 }
             })
@@ -53,20 +53,20 @@ class HomePresenter(homeView: IHomeView) {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<BaseBean<Article>> {
                 override fun onComplete() {
-                    LogUtilKt.i("onComplete")
+                    LogUtil.i("onComplete")
                 }
 
                 override fun onSubscribe(d: Disposable) {
-                    LogUtilKt.i("onSubscribe")
+                    LogUtil.i("onSubscribe")
                 }
 
                 override fun onNext(t: BaseBean<Article>) {
-                    LogUtilKt.i("onNext")
+                    LogUtil.i("onNext")
                     mIHomeView.getArticleMoreList(t)
                 }
 
                 override fun onError(e: Throwable) {
-                    LogUtilKt.i("onError")
+                    LogUtil.i("onError")
                     mIHomeView.getArticleMoreError("获取失败(°∀°)ﾉ" + e.message)
                 }
             })
@@ -79,20 +79,20 @@ class HomePresenter(homeView: IHomeView) {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<BaseBean<MutableList<Banner>>> {
                 override fun onComplete() {
-                    LogUtilKt.i("onComplete")
+                    LogUtil.i("onComplete")
                 }
 
                 override fun onSubscribe(d: Disposable) {
-                    LogUtilKt.i("onSubscribe")
+                    LogUtil.i("onSubscribe")
                 }
 
                 override fun onNext(t: BaseBean<MutableList<Banner>>) {
-                    LogUtilKt.i("onNext")
+                    LogUtil.i("onNext")
                     mIHomeView.getBanner(t)
                 }
 
                 override fun onError(e: Throwable) {
-                    LogUtilKt.i("onError")
+                    LogUtil.i("onError")
                     mIHomeView.getBannerError("获取失败(°∀°)ﾉ" + e.message)
                 }
             })
@@ -117,7 +117,7 @@ class HomePresenter(homeView: IHomeView) {
                 }
 
                 override fun onError(e: Throwable) {
-                    LogUtilKt.i("onError")
+                    LogUtil.i("onError")
                 }
             })
     }
@@ -137,7 +137,7 @@ class HomePresenter(homeView: IHomeView) {
                 }
 
                 override fun onError(e: Throwable) {
-                    LogUtilKt.i("onError")
+                    LogUtil.i("onError")
                 }
             })
     }

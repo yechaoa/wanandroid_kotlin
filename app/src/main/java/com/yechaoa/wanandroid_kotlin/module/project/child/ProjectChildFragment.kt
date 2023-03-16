@@ -17,7 +17,7 @@ import com.yechaoa.wanandroid_kotlin.base.BaseFragment
 import com.yechaoa.wanandroid_kotlin.bean.DataX
 import com.yechaoa.wanandroid_kotlin.bean.ProjectChild
 import com.yechaoa.wanandroid_kotlin.module.detail.DetailActivity
-import com.yechaoa.yutilskt.ToastUtilKt
+import com.yechaoa.yutilskt.ToastUtil
 import kotlinx.android.synthetic.main.fragment_project_child.*
 
 /**
@@ -85,7 +85,7 @@ class ProjectChildFragment : BaseFragment(), IProjectChildView, OnLoadMoreListen
     }
 
     override fun getProjectChildError(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
     }
 
     override fun getProjectMoreChild(projectChild: BaseBean<ProjectChild>) {
@@ -96,7 +96,7 @@ class ProjectChildFragment : BaseFragment(), IProjectChildView, OnLoadMoreListen
     }
 
     override fun getProjectChildMoreError(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
     }
 
     override fun onLoadMore() {

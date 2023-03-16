@@ -3,7 +3,7 @@ package com.yechaoa.wanandroid_kotlin.module.login
 import com.yechaoa.wanandroid_kotlin.base.BaseBean
 import com.yechaoa.wanandroid_kotlin.bean.User
 import com.yechaoa.wanandroid_kotlin.http.RetrofitService
-import com.yechaoa.yutilskt.LogUtilKt
+import com.yechaoa.yutilskt.LogUtil
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -25,15 +25,15 @@ class LoginPresenter(loginView: ILoginView) {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<BaseBean<User>> {
                 override fun onComplete() {
-                    LogUtilKt.i("onComplete")
+                    LogUtil.i("onComplete")
                 }
 
                 override fun onSubscribe(d: Disposable) {
-                    LogUtilKt.i("onSubscribe")
+                    LogUtil.i("onSubscribe")
                 }
 
                 override fun onNext(t: BaseBean<User>) {
-                    LogUtilKt.i("onNext")
+                    LogUtil.i("onNext")
                     if (-1 == t.errorCode) {
                         mLoginView.showLoginFailed("登录失败(°∀°)ﾉ" + t.errorMsg)
                     } else {
@@ -43,7 +43,7 @@ class LoginPresenter(loginView: ILoginView) {
                 }
 
                 override fun onError(e: Throwable) {
-                    LogUtilKt.i("onError")
+                    LogUtil.i("onError")
                     mLoginView.showLoginFailed("登录失败(°∀°)ﾉ" + e.message)
                 }
 

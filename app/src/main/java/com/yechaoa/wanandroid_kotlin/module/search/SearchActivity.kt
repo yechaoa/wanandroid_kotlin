@@ -25,9 +25,9 @@ import com.yechaoa.wanandroid_kotlin.bean.ArticleDetail
 import com.yechaoa.wanandroid_kotlin.bean.Hotkey
 import com.yechaoa.wanandroid_kotlin.module.detail.DetailActivity
 import com.yechaoa.wanandroid_kotlin.module.login.LoginActivity
-import com.yechaoa.yutilskt.LogUtilKt
-import com.yechaoa.yutilskt.ToastUtilKt
-import com.yechaoa.yutilskt.YUtilsKt
+import com.yechaoa.yutilskt.LogUtil
+import com.yechaoa.yutilskt.ToastUtil
+import com.yechaoa.yutilskt.YUtils
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import com.zhy.view.flowlayout.TagFlowLayout
@@ -113,7 +113,7 @@ class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadM
 
             // 当点击搜索按钮时触发该方法
             override fun onQueryTextSubmit(query: String): Boolean {
-                LogUtilKt.i("aaa", "搜索内容===$query")
+                LogUtil.i("aaa", "搜索内容===$query")
                 mKey = query
                 CURRENT_PAGE = 0 //重置分页，避免二次加载分页混乱
                 //搜索请求
@@ -161,7 +161,7 @@ class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadM
     }
 
     override fun getHotkeyError(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
     }
 
     override fun getArticleList(article: BaseBean<Article>) {
@@ -184,7 +184,7 @@ class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadM
     }
 
     override fun getArticleError(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
     }
 
     override fun getArticleMoreList(article: BaseBean<Article>) {
@@ -195,7 +195,7 @@ class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadM
     }
 
     override fun getArticleMoreError(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
@@ -235,13 +235,13 @@ class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadM
     }
 
     override fun collect(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
         mDataList[mPosition].collect = true
         mArticleAdapter.notifyDataSetChanged()
     }
 
     override fun unCollect(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
         mDataList[mPosition].collect = false
         mArticleAdapter.notifyDataSetChanged()
     }
@@ -259,7 +259,7 @@ class SearchActivity : BaseActivity(), ISearchView, OnItemClickListener, OnLoadM
      * 热词点击事件
      */
     override fun onTagClick(view: View?, position: Int, parent: FlowLayout?): Boolean {
-        YUtilsKt.closeSoftKeyboard()
+        YUtils.closeSoftKeyboard()
         mKey = mHotkeyList[position].name
         //填充搜索框
         mEditText.setText(mKey)

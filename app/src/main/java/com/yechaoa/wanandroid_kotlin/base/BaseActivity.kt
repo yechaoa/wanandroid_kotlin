@@ -5,15 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.yechaoa.yutilskt.YUtilsKt
+import com.yechaoa.yutilskt.YUtils
 
 /**
  * Created by yechao on 2020/1/3/003.
  * Describe :
  */
-abstract class BaseActivity: AppCompatActivity(), BaseView {
+abstract class BaseActivity : AppCompatActivity(), BaseView {
 
-//    protected var presenter: P? = null
+    //    protected var presenter: P? = null
     protected abstract fun createPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,11 +41,11 @@ abstract class BaseActivity: AppCompatActivity(), BaseView {
     protected abstract fun initView()
 
     override fun showLoading() {
-        YUtilsKt.showLoading(this,"加载中")
+        YUtils.showLoading(this, "加载中")
     }
 
     override fun hideLoading() {
-        YUtilsKt.hideLoading()
+        YUtils.hideLoading()
     }
 
     override fun onErrorCode(bean: BaseBean<Any>) {

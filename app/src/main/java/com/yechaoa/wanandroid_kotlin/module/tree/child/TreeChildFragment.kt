@@ -18,7 +18,7 @@ import com.yechaoa.wanandroid_kotlin.bean.Article
 import com.yechaoa.wanandroid_kotlin.bean.ArticleDetail
 import com.yechaoa.wanandroid_kotlin.module.detail.DetailActivity
 import com.yechaoa.wanandroid_kotlin.module.login.LoginActivity
-import com.yechaoa.yutilskt.ToastUtilKt
+import com.yechaoa.yutilskt.ToastUtil
 import kotlinx.android.synthetic.main.fragment_project_child.*
 
 /**
@@ -83,7 +83,7 @@ class TreeChildFragment : BaseFragment(), ITreeChildView, OnLoadMoreListener, On
     }
 
     override fun getTreeChildError(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
     }
 
     override fun getTreeMoreChild(treeChild: BaseBean<Article>) {
@@ -94,7 +94,7 @@ class TreeChildFragment : BaseFragment(), ITreeChildView, OnLoadMoreListener, On
     }
 
     override fun getTreeChildMoreError(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
     }
 
     override fun login(msg: String) {
@@ -114,13 +114,13 @@ class TreeChildFragment : BaseFragment(), ITreeChildView, OnLoadMoreListener, On
     }
 
     override fun collect(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
         mDataList[mPosition].collect = true
         mArticleAdapter.notifyDataSetChanged()
     }
 
     override fun unCollect(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
         mDataList[mPosition].collect = false
         mArticleAdapter.notifyDataSetChanged()
     }

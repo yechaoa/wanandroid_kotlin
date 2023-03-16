@@ -18,8 +18,7 @@ import com.yechaoa.wanandroid_kotlin.bean.Banner
 import com.yechaoa.wanandroid_kotlin.module.detail.DetailActivity
 import com.yechaoa.wanandroid_kotlin.module.login.LoginActivity
 import com.yechaoa.wanandroid_kotlin.utils.GlideImageLoader
-import com.yechaoa.yutilskt.ToastUtilKt
-import com.yechaoa.yutilskt.YUtilsKt
+import com.yechaoa.yutilskt.*
 import com.youth.banner.BannerConfig
 import com.youth.banner.listener.OnBannerListener
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -74,7 +73,7 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener, OnLoadMoreList
 
         //动态设置高度
         val layoutParams = banner.layoutParams
-        layoutParams.height = (YUtilsKt.getScreenWidth() / 1.8).roundToInt()
+        layoutParams.height = (DisplayUtil.getScreenWidth() / 1.8).roundToInt()
 
         banner
             .setImages(images)
@@ -87,7 +86,7 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener, OnLoadMoreList
     }
 
     override fun getBannerError(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
     }
 
     override fun getArticleList(article: BaseBean<Article>) {
@@ -108,7 +107,7 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener, OnLoadMoreList
     }
 
     override fun getArticleError(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
     }
 
     override fun getArticleMoreList(article: BaseBean<Article>) {
@@ -119,7 +118,7 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener, OnLoadMoreList
     }
 
     override fun getArticleMoreError(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
     }
 
     override fun login(msg: String) {
@@ -139,13 +138,13 @@ class HomeFragment : BaseFragment(), IHomeView, OnBannerListener, OnLoadMoreList
     }
 
     override fun collect(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
         mDataList[mPosition].collect = true
         mArticleAdapter.notifyDataSetChanged()
     }
 
     override fun unCollect(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
         mDataList[mPosition].collect = false
         mArticleAdapter.notifyDataSetChanged()
     }

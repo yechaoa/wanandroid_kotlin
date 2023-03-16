@@ -6,7 +6,7 @@ import com.yechaoa.wanandroid_kotlin.base.BaseActivity
 import com.yechaoa.wanandroid_kotlin.common.MyConfig
 import com.yechaoa.wanandroid_kotlin.module.MainActivity
 import com.yechaoa.wanandroid_kotlin.module.login.LoginActivity
-import com.yechaoa.yutilskt.SpUtilKt
+import com.yechaoa.yutilskt.SpUtil
 
 class SplashActivity : BaseActivity() {
 
@@ -21,7 +21,7 @@ class SplashActivity : BaseActivity() {
             override fun run() {
                 try {
                     sleep(1000)
-                    if (SpUtilKt.getBoolean(MyConfig.IS_LOGIN)) {
+                    if (SpUtil.getBoolean(MyConfig.IS_LOGIN)) {
                         startActivity(Intent(this@SplashActivity, MainActivity::class.java))
                     } else {
                         startActivity(Intent(this@SplashActivity, LoginActivity::class.java))

@@ -5,8 +5,8 @@ import com.yechaoa.wanandroid_kotlin.R
 import com.yechaoa.wanandroid_kotlin.base.BaseActivity
 import com.yechaoa.wanandroid_kotlin.base.BaseBean
 import com.yechaoa.wanandroid_kotlin.bean.User
-import com.yechaoa.yutilskt.ToastUtilKt
-import com.yechaoa.yutilskt.YUtilsKt
+import com.yechaoa.yutilskt.ToastUtil
+import com.yechaoa.yutilskt.YUtils
 import kotlinx.android.synthetic.main.activity_login.et_password
 import kotlinx.android.synthetic.main.activity_login.et_username
 import kotlinx.android.synthetic.main.activity_register.*
@@ -33,7 +33,7 @@ class RegisterActivity : BaseActivity(), IRegisterView {
     }
 
     private fun attemptRegister() {
-        YUtilsKt.closeSoftKeyboard()
+        YUtils.closeSoftKeyboard()
 
         et_username.error = null
         et_password.error = null
@@ -82,22 +82,22 @@ class RegisterActivity : BaseActivity(), IRegisterView {
         password: String,
         repassword: String
     ) {
-        YUtilsKt.showLoading(this, "测试加载中")
+        YUtils.showLoading(this, "测试加载中")
         mRegisterPresenter.submit(username, password, repassword)
     }
 
     override fun showRegisterSuccess(successMessage: String) {
-        YUtilsKt.hideLoading()
-        ToastUtilKt.showCenterToast(successMessage)
+        YUtils.hideLoading()
+        ToastUtil.showCenter(successMessage)
     }
 
     override fun showRegisterFailed(errorMessage: String) {
-        YUtilsKt.hideLoading()
-        ToastUtilKt.showCenterToast(errorMessage)
+        YUtils.hideLoading()
+        ToastUtil.showCenter(errorMessage)
     }
 
     override fun doSuccess(user: BaseBean<User>) {
-        ToastUtilKt.showCenterToast("注册成功，请登录")
+        ToastUtil.showCenter("注册成功，请登录")
         finish()
     }
 

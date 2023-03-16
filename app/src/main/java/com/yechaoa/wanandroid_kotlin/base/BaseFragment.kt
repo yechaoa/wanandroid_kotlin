@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.yechaoa.yutilskt.ActivityUtilKt
-import com.yechaoa.yutilskt.YUtilsKt
+import com.yechaoa.yutilskt.ActivityUtil
+import com.yechaoa.yutilskt.YUtils
 
 /**
  * Created by yechao on 2020/1/13/013.
@@ -19,7 +19,7 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(getLayoutId(), container, false)
-        mContext = ActivityUtilKt.currentActivity!!
+        mContext = ActivityUtil.currentActivity!!
         createPresenter()
         return view
     }
@@ -52,11 +52,11 @@ abstract class BaseFragment : Fragment(), BaseView {
     protected abstract fun initData()
 
     override fun showLoading() {
-        YUtilsKt.showLoading(ActivityUtilKt.currentActivity!!, "加载中")
+        YUtils.showLoading(ActivityUtil.currentActivity!!, "加载中")
     }
 
     override fun hideLoading() {
-        YUtilsKt.hideLoading()
+        YUtils.hideLoading()
     }
 
     override fun onErrorCode(bean: BaseBean<Any>) {

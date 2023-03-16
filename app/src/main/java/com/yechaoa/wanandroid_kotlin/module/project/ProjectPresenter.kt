@@ -3,7 +3,7 @@ package com.yechaoa.wanandroid_kotlin.module.project
 import com.yechaoa.wanandroid_kotlin.base.BaseBean
 import com.yechaoa.wanandroid_kotlin.bean.Project
 import com.yechaoa.wanandroid_kotlin.http.RetrofitService
-import com.yechaoa.yutilskt.LogUtilKt
+import com.yechaoa.yutilskt.LogUtil
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -24,20 +24,20 @@ class ProjectPresenter(projectView: IProjectView) {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<BaseBean<MutableList<Project>>> {
                 override fun onComplete() {
-                    LogUtilKt.i("onComplete")
+                    LogUtil.i("onComplete")
                 }
 
                 override fun onSubscribe(d: Disposable) {
-                    LogUtilKt.i("onSubscribe")
+                    LogUtil.i("onSubscribe")
                 }
 
                 override fun onNext(t: BaseBean<MutableList<Project>>) {
-                    LogUtilKt.i("onNext")
+                    LogUtil.i("onNext")
                     mIProjectView.getProject(t)
                 }
 
                 override fun onError(e: Throwable) {
-                    LogUtilKt.i("onError")
+                    LogUtil.i("onError")
                     mIProjectView.getProjectError("获取失败(°∀°)ﾉ" + e.message)
                 }
             })

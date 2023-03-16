@@ -11,7 +11,7 @@ import com.yechaoa.wanandroid_kotlin.base.BaseFragment
 import com.yechaoa.wanandroid_kotlin.bean.ArticleX
 import com.yechaoa.wanandroid_kotlin.bean.Navi
 import com.yechaoa.wanandroid_kotlin.module.detail.DetailActivity
-import com.yechaoa.yutilskt.ToastUtilKt
+import com.yechaoa.yutilskt.ToastUtil
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import com.zhy.view.flowlayout.TagFlowLayout
@@ -109,7 +109,7 @@ class NaviFragment : BaseFragment(), INaviView, VerticalTabLayout.OnTabSelectedL
     }
 
     override fun getNaviError(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
     }
 
     /**

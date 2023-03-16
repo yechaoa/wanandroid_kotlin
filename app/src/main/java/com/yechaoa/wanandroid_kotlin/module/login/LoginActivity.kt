@@ -10,9 +10,9 @@ import com.yechaoa.wanandroid_kotlin.bean.User
 import com.yechaoa.wanandroid_kotlin.common.MyConfig
 import com.yechaoa.wanandroid_kotlin.module.MainActivity
 import com.yechaoa.wanandroid_kotlin.module.register.RegisterActivity
-import com.yechaoa.yutilskt.SpUtilKt
-import com.yechaoa.yutilskt.ToastUtilKt
-import com.yechaoa.yutilskt.YUtilsKt
+import com.yechaoa.yutilskt.SpUtil
+import com.yechaoa.yutilskt.ToastUtil
+import com.yechaoa.yutilskt.YUtils
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity(), ILoginView {
@@ -48,7 +48,7 @@ class LoginActivity : BaseActivity(), ILoginView {
     }
 
     private fun attemptLogin() {
-        YUtilsKt.closeSoftKeyboard()
+        YUtils.closeSoftKeyboard()
 
         et_username.error = null
         et_password.error = null
@@ -79,22 +79,22 @@ class LoginActivity : BaseActivity(), ILoginView {
     }
 
     private fun doLogin(username: String, password: String) {
-        YUtilsKt.showLoading(this, "加载中")
+        YUtils.showLoading(this, "加载中")
         mLoginPresenter.submit(username, password)
     }
 
     override fun showLoginSuccess(successMessage: String) {
-        YUtilsKt.hideLoading()
-        ToastUtilKt.showCenterToast(successMessage)
+        YUtils.hideLoading()
+        ToastUtil.showCenter(successMessage)
     }
 
     override fun showLoginFailed(errorMessage: String) {
-        YUtilsKt.hideLoading()
-        ToastUtilKt.showCenterToast(errorMessage)
+        YUtils.hideLoading()
+        ToastUtil.showCenter(errorMessage)
     }
 
     override fun doSuccess(user: BaseBean<User>) {
-        SpUtilKt.setBoolean(MyConfig.IS_LOGIN, true)
+        SpUtil.setBoolean(MyConfig.IS_LOGIN, true)
 
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)

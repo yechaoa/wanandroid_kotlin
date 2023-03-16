@@ -4,7 +4,7 @@ import com.yechaoa.wanandroid_kotlin.base.BaseBean
 import com.yechaoa.wanandroid_kotlin.bean.Article
 import com.yechaoa.wanandroid_kotlin.bean.Hotkey
 import com.yechaoa.wanandroid_kotlin.http.RetrofitService
-import com.yechaoa.yutilskt.LogUtilKt
+import com.yechaoa.yutilskt.LogUtil
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -105,7 +105,7 @@ class SearchPresenter(searchView: ISearchView) {
                 }
 
                 override fun onError(e: Throwable) {
-                    LogUtilKt.i("onError")
+                    LogUtil.i("onError")
                 }
             })
     }
@@ -125,7 +125,7 @@ class SearchPresenter(searchView: ISearchView) {
                 }
 
                 override fun onError(e: Throwable) {
-                    LogUtilKt.i("onError")
+                    LogUtil.i("onError")
                 }
             })
     }

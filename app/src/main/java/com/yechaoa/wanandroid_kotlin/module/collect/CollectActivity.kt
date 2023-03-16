@@ -16,7 +16,7 @@ import com.yechaoa.wanandroid_kotlin.bean.Collect
 import com.yechaoa.wanandroid_kotlin.bean.CollectDetail
 import com.yechaoa.wanandroid_kotlin.module.detail.DetailActivity
 import com.yechaoa.wanandroid_kotlin.module.login.LoginActivity
-import com.yechaoa.yutilskt.ToastUtilKt
+import com.yechaoa.yutilskt.ToastUtil
 import kotlinx.android.synthetic.main.activity_collect.*
 
 class CollectActivity : BaseActivity(), ICollectView, OnItemClickListener, OnLoadMoreListener,
@@ -78,7 +78,7 @@ class CollectActivity : BaseActivity(), ICollectView, OnItemClickListener, OnLoa
     }
 
     override fun getCollectError(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
     }
 
     override fun login(msg: String) {
@@ -107,11 +107,11 @@ class CollectActivity : BaseActivity(), ICollectView, OnItemClickListener, OnLoa
     }
 
     override fun getCollectMoreError(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
     }
 
     override fun unCollect(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
         mCollectAdapter.removeAt(mPosition)
     }
 

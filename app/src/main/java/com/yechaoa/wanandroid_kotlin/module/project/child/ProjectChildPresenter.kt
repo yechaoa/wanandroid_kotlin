@@ -3,7 +3,7 @@ package com.yechaoa.wanandroid_kotlin.module.project.child
 import com.yechaoa.wanandroid_kotlin.base.BaseBean
 import com.yechaoa.wanandroid_kotlin.bean.ProjectChild
 import com.yechaoa.wanandroid_kotlin.http.RetrofitService
-import com.yechaoa.yutilskt.LogUtilKt
+import com.yechaoa.yutilskt.LogUtil
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -24,24 +24,25 @@ class ProjectChildPresenter(projectChildView: IProjectChildView) {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<BaseBean<ProjectChild>> {
                 override fun onComplete() {
-                    LogUtilKt.i("onComplete")
+                    LogUtil.i("onComplete")
                 }
 
                 override fun onSubscribe(d: Disposable) {
-                    LogUtilKt.i("onSubscribe")
+                    LogUtil.i("onSubscribe")
                 }
 
                 override fun onNext(t: BaseBean<ProjectChild>) {
-                    LogUtilKt.i("onNext")
+                    LogUtil.i("onNext")
                     mIProjectChildView.getProjectChild(t)
                 }
 
                 override fun onError(e: Throwable) {
-                    LogUtilKt.i("onError")
+                    LogUtil.i("onError")
                     mIProjectChildView.getProjectChildError("获取失败(°∀°)ﾉ" + e.message)
                 }
             })
     }
+
     fun getProjectMoreChild(page: Int, cid: Int) {
         RetrofitService.getApiService()
             .getProjectChild(page, cid)
@@ -49,20 +50,20 @@ class ProjectChildPresenter(projectChildView: IProjectChildView) {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<BaseBean<ProjectChild>> {
                 override fun onComplete() {
-                    LogUtilKt.i("onComplete")
+                    LogUtil.i("onComplete")
                 }
 
                 override fun onSubscribe(d: Disposable) {
-                    LogUtilKt.i("onSubscribe")
+                    LogUtil.i("onSubscribe")
                 }
 
                 override fun onNext(t: BaseBean<ProjectChild>) {
-                    LogUtilKt.i("onNext")
+                    LogUtil.i("onNext")
                     mIProjectChildView.getProjectMoreChild(t)
                 }
 
                 override fun onError(e: Throwable) {
-                    LogUtilKt.i("onError")
+                    LogUtil.i("onError")
                     mIProjectChildView.getProjectChildMoreError("获取失败(°∀°)ﾉ" + e.message)
                 }
             })

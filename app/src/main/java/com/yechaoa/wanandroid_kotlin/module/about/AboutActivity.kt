@@ -13,7 +13,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.yechaoa.wanandroid_kotlin.R
 import com.yechaoa.wanandroid_kotlin.module.detail.DetailActivity
-import com.yechaoa.yutilskt.YUtilsKt
+import com.yechaoa.yutilskt.YUtils
 import kotlinx.android.synthetic.main.activity_about.*
 import kotlinx.android.synthetic.main.content_about.*
 
@@ -39,7 +39,7 @@ class AboutActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setHomeButtonEnabled(true)
 
-        tv_app_info.text = "玩安卓  V${YUtilsKt.getVersionName()}"
+        tv_app_info.text = "玩安卓  V${YUtils.getVersionName()}"
 
         //添加下划线
         tv_github.paint.flags = Paint.UNDERLINE_TEXT_FLAG

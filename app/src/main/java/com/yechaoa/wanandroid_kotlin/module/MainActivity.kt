@@ -24,9 +24,9 @@ import com.yechaoa.wanandroid_kotlin.module.navi.NaviFragment
 import com.yechaoa.wanandroid_kotlin.module.project.ProjectFragment
 import com.yechaoa.wanandroid_kotlin.module.search.SearchActivity
 import com.yechaoa.wanandroid_kotlin.module.tree.TreeFragment
-import com.yechaoa.yutilskt.ActivityUtilKt
-import com.yechaoa.yutilskt.SpUtilKt
-import com.yechaoa.yutilskt.ToastUtilKt
+import com.yechaoa.yutilskt.ActivityUtil
+import com.yechaoa.yutilskt.SpUtil
+import com.yechaoa.yutilskt.ToastUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -47,7 +47,7 @@ class MainActivity : BaseActivity() {
         fab.setOnClickListener {
             Snackbar.make(it, "这是一个提示", Snackbar.LENGTH_SHORT)
                 .setAction("按钮") {
-                    ToastUtilKt.showCenterToast("点击了按钮")
+                    ToastUtil.showCenter("点击了按钮")
                 }.show()
         }
 
@@ -134,8 +134,8 @@ class MainActivity : BaseActivity() {
                         setTitle("提示")
                         setMessage("确定退出？")
                         setPositiveButton("确定") { _, _ ->
-                            SpUtilKt.setBoolean(MyConfig.IS_LOGIN, false)
-                            SpUtilKt.removeByKey(MyConfig.COOKIE)
+                            SpUtil.setBoolean(MyConfig.IS_LOGIN, false)
+                            SpUtil.removeByKey(MyConfig.COOKIE)
                             startActivity(Intent(this@MainActivity, LoginActivity::class.java))
                             finish()
                         }
@@ -227,7 +227,7 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_search -> startActivity(Intent(this, SearchActivity::class.java))
-            R.id.action_settings -> ToastUtilKt.showCenterToast("设置")
+            R.id.action_settings -> ToastUtil.showCenter("设置")
         }
         return super.onOptionsItemSelected(item)
     }
@@ -242,10 +242,10 @@ class MainActivity : BaseActivity() {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
             if ((System.currentTimeMillis() - mExitTime) > 2000) {
-                ToastUtilKt.showCenterToast("再按一次退出" + resources.getString(R.string.app_name))
+                ToastUtil.showCenter("再按一次退出" + resources.getString(R.string.app_name))
                 mExitTime = System.currentTimeMillis()
             } else {
-                ActivityUtilKt.closeAllActivity()
+                ActivityUtil.closeAllActivity()
             }
         }
         //super.onBackPressed()

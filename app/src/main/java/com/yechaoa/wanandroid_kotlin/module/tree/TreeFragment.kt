@@ -12,7 +12,7 @@ import com.yechaoa.wanandroid_kotlin.base.BaseBean
 import com.yechaoa.wanandroid_kotlin.base.BaseFragment
 import com.yechaoa.wanandroid_kotlin.bean.Tree
 import com.yechaoa.wanandroid_kotlin.module.tree.child.TreeChildActivity
-import com.yechaoa.yutilskt.ToastUtilKt
+import com.yechaoa.yutilskt.ToastUtil
 import com.zhy.view.flowlayout.FlowLayout
 import kotlinx.android.synthetic.main.fragment_tree.*
 
@@ -88,7 +88,7 @@ class TreeFragment : BaseFragment(), ITreeView, TreeAdapter.OnItemTagClickListen
     }
 
     override fun getTreeError(msg: String) {
-        ToastUtilKt.showCenterToast(msg)
+        ToastUtil.showCenter(msg)
     }
 
     /**

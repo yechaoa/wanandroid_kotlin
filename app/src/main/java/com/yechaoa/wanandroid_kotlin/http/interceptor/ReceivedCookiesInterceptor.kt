@@ -1,7 +1,7 @@
 package com.yechaoa.wanandroid_kotlin.http.interceptor
 
 import com.yechaoa.wanandroid_kotlin.common.MyConfig
-import com.yechaoa.yutilskt.SpUtilKt
+import com.yechaoa.yutilskt.SpUtil
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
@@ -20,7 +20,7 @@ class ReceivedCookiesInterceptor : Interceptor {
             for (header in originalResponse.headers("Set-Cookie")) {
                 cookies.add(header)
             }
-            SpUtilKt.setStringSet(MyConfig.COOKIE, cookies)
+            SpUtil.setStringSet(MyConfig.COOKIE, cookies)
         }
         return originalResponse
     }
