@@ -15,10 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".module.tree.child.TreeChildActivity"></activity>
+        <activity android:name=".module.tree.child.TreeChildActivity"/>
         <activity android:name=".module.collect.CollectActivity" />
         <activity
             android:name=".module.splash.SplashActivity"
+            android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
