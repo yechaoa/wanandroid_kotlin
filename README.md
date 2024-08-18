@@ -35,9 +35,10 @@
 
 # :package:环境
 
-* Android Studio Dolphin | 2021.3.1
-* Android Gradle Plugin 7.3.0
+* Android Studio Giraffe | 2022.3.1 Patch 1
+* Android Gradle Plugin 8.1.1
 * Kotlin 1.7.10
+* jdk 17
 
 
 <br>

@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    namespace  "com.yechaoa.wanandroid_kotlin"
     compileSdkVersion 32
     defaultConfig {
         applicationId "com.yechaoa.wanandroid_kotlin"
@@ -23,8 +24,8 @@ android {
         experimental = true
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 }
 
@@ -42,7 +43,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
 
     /*YUtils*/
-    implementation 'com.github.yechaoa:YUtils:3.2.2'
+    implementation 'com.github.yechaoa:YUtils:3.4.0'
 
     /*retrofit、rxjava*/
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
